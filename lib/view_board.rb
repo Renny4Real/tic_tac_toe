@@ -1,26 +1,17 @@
-class ViewBoard 
+# frozen_string_literal: true
+
+class ViewBoard
   def initialize(player_gateway:)
     @player_gateway = player_gateway
-    @board = [
-      ['-' , '-' , '-'],
-      ['-', '-' , '-'],
-      ['-' , '-' , '-']
-      ]
+    @board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
   end
 
   def execute(*)
     if @player_gateway.placing_xos.nil?
-      {
-        board: @board
-      }
+      { board: @board }
     else
-      @board = [
-      ['-' , '-' , '-'],
-      ['-', :X , '-'],
-      ['-' , '-' , '-']
-      ]
-      
-      {board: @board}
-    end 
+      @board[@player_gateway.placing_xos.x_coordinate][@player_gateway.placing_xos.y_coordinate] = :X
+      { board: @board }
+    end
   end
-end 
+end
