@@ -2,9 +2,17 @@
 
 describe 'a game of Tic Tac Toe' do
   class InMemoryPlayerGateway
-    attr_reader :placing_xos
+    def placing_xos
+      @placing_xos 
+    end
 
-    attr_writer :placing_xos
+    def placing_xos=(placing_xos)
+      @placing_xos = placing_xos
+    end
+
+    def save
+      #Save the state of the current game
+    end 
   end
 
   let(:view_board) { ViewBoard.new(player_gateway: player_gateway) }
@@ -43,6 +51,19 @@ describe 'a game of Tic Tac Toe' do
     expect(board). to eq(
     [
       ['-', '-', '-'],
+      ['-', :X, '-'],
+      ['-', '-', '-']
+    ])
+  end
+
+  it 'can display board after player twos turn' do
+    set_player_turn.execute(player: :O)
+
+    response = view_board.execute({})
+    board = response[:board]
+    expect(board). to eq(
+    [
+      [:O, '-', '-'],
       ['-', :X, '-'],
       ['-', '-', '-']
     ])

@@ -3,6 +3,7 @@
 require 'view_board'
 require 'set_player_turn'
 require 'player'
+require 'current_board'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
