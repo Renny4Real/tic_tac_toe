@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'view_board'
-require 'set_player_turn'
+require 'place_mark'
 require 'player'
 require 'current_board'
 

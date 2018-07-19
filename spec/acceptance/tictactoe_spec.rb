@@ -16,7 +16,8 @@ describe 'a game of Tic Tac Toe' do
   end
 
   let(:view_board) { ViewBoard.new(player_gateway: player_gateway) }
-  let(:set_player_turn) { SetPlayerTurn.new(player_gateway: player_gateway) }
+  let(:place_mark) { PlaceMark.new(player_gateway: player_gateway) }
+  let(:current_board) {CurrentBoard.new(player_gateway: player_gateway)}
   let(:player_gateway) { InMemoryPlayerGateway.new }
 
   it 'can display 3x3 board' do
@@ -31,7 +32,7 @@ describe 'a game of Tic Tac Toe' do
   end
 
   it 'can display board after player one plays' do
-    set_player_turn.execute(player: :X)
+    place_mark.execute(player: :X , x: 1, y: 1)
 
     response = view_board.execute({})
     board = response[:board]
@@ -44,7 +45,7 @@ describe 'a game of Tic Tac Toe' do
   end
 
   it 'can display board after player one plays with coordinates' do
-    set_player_turn.execute(player: :X)
+    place_mark.execute(player: :X ,x: 1 , y: 1)
 
     response = view_board.execute({})
     board = response[:board]
@@ -56,15 +57,44 @@ describe 'a game of Tic Tac Toe' do
     ])
   end
 
-  it 'can display board after player twos turn' do
-    set_player_turn.execute(player: :O)
+  it 'can display board with O' do
+    place_mark.execute(player: :O ,x: 1 , y: 1)
 
     response = view_board.execute({})
     board = response[:board]
     expect(board). to eq(
     [
+      ['-', '-', '-'],
+      ['-', :O, '-'],
+      ['-', '-', '-']
+    ])
+  end
+
+
+  it 'can display board after player twos turn' do
+    place_mark.execute(player: :O ,x: 0 , y: 0)
+    response = view_board.execute({})
+    board = response[:board]
+
+    place_mark.execute(player: :X, x: 1, y: 1)
+    response = view_board.execute({})
+    board = response[:board]
+    
+    expect(board). to eq(
+    [
       [:O, '-', '-'],
       ['-', :X, '-'],
+      ['-', '-', '-']
+    ])
+  end
+
+  it 'can display copy of the board' do
+    response = current_board.execute({})
+    board = response[:board]
+    expect(board). to eq(
+    [
+      ['-', '-', '-'],
+      ['-', '-', '-'],
       ['-', '-', '-']
     ])
   end
