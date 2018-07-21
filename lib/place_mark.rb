@@ -9,5 +9,6 @@ class PlaceMark
 
   def execute(player: , x: , y:)
     @player_gateway.placing_xos = Player.new(player, x, y)
+    {}
   end
 end

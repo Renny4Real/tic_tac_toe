@@ -17,4 +17,6 @@ describe PlaceMark do
     expect(player.type).to eq(:O)
     end
   end
+
+ # same board O and X 
 end

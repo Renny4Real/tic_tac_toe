@@ -72,9 +72,9 @@ describe 'a game of Tic Tac Toe' do
 
 
   it 'can display board after player twos turn' do
+
     place_mark.execute(player: :O ,x: 0 , y: 0)
-    response = view_board.execute({})
-    board = response[:board]
+    view_board.execute({})
 
     place_mark.execute(player: :X, x: 1, y: 1)
     response = view_board.execute({})
