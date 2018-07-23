@@ -21,4 +21,5 @@ class ViewBoard
   def check_dup?(x, y)
     @board[x][y] == :O || @board[x][y] == :X
   end
+  #
 end
