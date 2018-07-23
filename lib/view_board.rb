@@ -7,14 +7,18 @@ class ViewBoard
   end
 
   def execute(*)
-    if @player_gateway.placing_xos.nil?
-      { board: @board }
-    else 
-      Array(@player_gateway.placing_xos).each do |player|
+    Array(@player_gateway.placing_xos).each do |player|
+      if check_dup?(player.x_coordinate, player.y_coordinate)
+        { board: @board }
+      else
         @board[player.x_coordinate][player.y_coordinate] = player.type
-       end 
-       { board: @board }
+      end
     end
+
     { board: @board }
+  end
+
+  def check_dup?(x, y)
+    @board[x][y] == :O || @board[x][y] == :X
   end
 end

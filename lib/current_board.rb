@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CurrentBoard
   def initialize(player_gateway:)
     @player_gateway = player_gateway
