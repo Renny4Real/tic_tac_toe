@@ -7,9 +7,7 @@ class Player
     @y = y_coordinate
   end
 
-  def type
-    @type
-  end 
+  attr_reader :type
 
   def x_coordinate
     @x
