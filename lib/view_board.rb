@@ -18,6 +18,8 @@ class ViewBoard
     { board: @board }
   end
 
+  private
+  
   def check_dup?(x, y)
     @board[x][y] == :O || @board[x][y] == :X
   end
