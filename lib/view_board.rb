@@ -14,9 +14,10 @@ class ViewBoard
         @board[player.x_coordinate][player.y_coordinate] = player.type
       end
     end
-
     { board: @board }
   end
+
+  private
 
   def check_dup?(x, y)
     @board[x][y] == :O || @board[x][y] == :X
