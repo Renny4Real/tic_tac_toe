@@ -18,7 +18,7 @@ describe CheckBoard do
                                           ['-', '-', '-']])
   end
 
-  context 'Winning for X' do
+  xcontext 'Winning for X' do
     context 'diagonal' do
       it 'can return X as the winner from diagonal forward ' do
         expect_check_board_to_respond_with({ status: :X_wins }, [
@@ -90,7 +90,7 @@ describe CheckBoard do
     end
   end
 
-  context 'Winning for O' do
+  xcontext 'Winning for O' do
     context 'diagonal' do
       it 'can return O as the winner from diagonal forward' do
         expect_check_board_to_respond_with({ status: :O_wins }, [
@@ -162,7 +162,7 @@ describe CheckBoard do
     end
   end
 
-  context 'Draw Conditions' do
+  xcontext 'Draw Conditions' do
     it 'can return game over if all 9 squares are full and neither player has won ' do
       expect_check_board_to_respond_with({ status: :draw }, [
                                            %i[O X O],
