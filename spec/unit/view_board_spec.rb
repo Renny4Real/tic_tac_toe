@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 describe ViewBoard do
+
+  def view_marks_on_board(player)
+    player_gateway = double(placing_xos: player)
+    view_board = ViewBoard.new(player_gateway: player_gateway)
+    view_board.execute({})
+  end
+  
   it 'can view an empty board' do
     view_board = ViewBoard.new(player_gateway: double(placing_xos: nil))
     expect(view_board.execute).to eq(board: [
@@ -11,9 +18,8 @@ describe ViewBoard do
   end
 
   it 'can view a board with an X piece with coordinates in 0,0' do
-    player_gateway = double(placing_xos: Player.new(:X, 0, 0))
-    view_board = ViewBoard.new(player_gateway: player_gateway)
-    expect(view_board.execute).to eq(board: [
+    response = view_marks_on_board(Player.new(:X, 0, 0))
+    expect(response).to eq(board: [
                                        [:X, '-', '-'],
                                        ['-', '-', '-'],
                                        ['-', '-', '-']
@@ -21,9 +27,8 @@ describe ViewBoard do
   end
 
   it 'can view a board with an X piece coordinates in 1,1' do
-    player_gateway = double(placing_xos: Player.new(:X, 1, 1))
-    view_board = ViewBoard.new(player_gateway: player_gateway)
-    expect(view_board.execute).to eq(board: [
+    response = view_marks_on_board(Player.new(:X, 1, 1))
+    expect(response).to eq(board: [
                                        ['-', '-', '-'],
                                        ['-', :X, '-'],
                                        ['-', '-', '-']
@@ -31,12 +36,11 @@ describe ViewBoard do
   end
 
   it 'can view a board with an X at coordinates at (1,1) and O at coordinates(0,1)' do
-    player_gateway = double(placing_xos: [
-                              Player.new(:O, 1, 1),
-                              Player.new(:X, 0, 0)
-                            ])
-    view_board = ViewBoard.new(player_gateway: player_gateway)
-    expect(view_board.execute).to eq(board: [
+    response = view_marks_on_board([
+                                    Player.new(:O, 1, 1),
+                                    Player.new(:X, 0, 0)
+                                  ])
+    expect(response).to eq(board: [
                                        [:X, '-', '-'],
                                        ['-', :O, '-'],
                                        ['-', '-', '-']
@@ -44,12 +48,11 @@ describe ViewBoard do
   end
 
   it 'can view a board with only one mark in one x,y coordinates' do
-    player_gateway = double(placing_xos: [
-                              Player.new(:O, 0, 0),
-                              Player.new(:X, 0, 0)
-                            ])
-    view_board = ViewBoard.new(player_gateway: player_gateway)
-    expect(view_board.execute).to eq(board: [
+    response = view_marks_on_board([
+      Player.new(:O, 0, 0),
+      Player.new(:X, 0, 0)
+    ])
+    expect(response).to eq(board: [
                                        [:O, '-', '-'],
                                        ['-', '-', '-'],
                                        ['-', '-', '-']
@@ -57,13 +60,12 @@ describe ViewBoard do
   end
 
   it 'can view a board with multiple marks ' do
-    player_gateway = double(placing_xos: [
-                              Player.new(:O, 0, 0),
+    response = view_marks_on_board([
+      Player.new(:O, 0, 0),
                               Player.new(:X, 0, 0),
                               Player.new(:X, 1, 1)
-                            ])
-    view_board = ViewBoard.new(player_gateway: player_gateway)
-    expect(view_board.execute).to eq(board: [
+    ])
+    expect(response).to eq(board: [
                                        [:O, '-', '-'],
                                        ['-', :X, '-'],
                                        ['-', '-', '-']
@@ -80,9 +82,8 @@ describe ViewBoard do
   end
 
   it 'can view a board with an O piece coordinates in 1,1' do
-    player_gateway = double(placing_xos: Player.new(:O, 1, 1))
-    view_board = ViewBoard.new(player_gateway: player_gateway)
-    expect(view_board.execute).to eq(board: [
+    response = view_marks_on_board(Player.new(:O, 1, 1))
+    expect(response).to eq(board: [
                                        ['-', '-', '-'],
                                        ['-', :O, '-'],
                                        ['-', '-', '-']

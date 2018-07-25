@@ -27,7 +27,11 @@ describe 'a game of Tic Tac Toe' do
     it 'can display copy of the board' do
       response = view_board.execute
       board = response[:board]
-      expect(check_board.execute(board)). to eq('')
+      expect(check_board.execute(board)). to eq([
+                                                  ['-', '-', '-'],
+                                                  ['-', '-', '-'],
+                                                  ['-', '-', '-']
+                                                ])
     end
 
     it 'can display board after player one plays' do
