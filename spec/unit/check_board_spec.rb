@@ -1,24 +1,22 @@
 # frozen_string_literal: true
 
 describe CheckBoard do
-  let(:check_board) { CheckBoard.new }
+   
 
   def expect_check_board_to_respond_with(expected, board)
-    response = subject.execute(board)
+    check_board = CheckBoard.new(player_gateway: double(get_board: board)) 
+    response = check_board.execute()
     expect(response).to eq(expected)
   end
 
   it 'can return empty string for an empty board' do
-    expect(check_board.execute([
-                                 ['-', '-', '-'],
-                                 ['-', '-', '-'],
-                                 ['-', '-', '-']
-                               ])).to eq([['-', '-', '-'],
+    check_board = CheckBoard.new(player_gateway: double(get_board: nil)) 
+    expect(check_board.execute).to eq([['-', '-', '-'],
                                           ['-', '-', '-'],
                                           ['-', '-', '-']])
   end
 
-  xcontext 'Winning for X' do
+  context 'Winning for X' do
     context 'diagonal' do
       it 'can return X as the winner from diagonal forward ' do
         expect_check_board_to_respond_with({ status: :X_wins }, [
@@ -90,7 +88,7 @@ describe CheckBoard do
     end
   end
 
-  xcontext 'Winning for O' do
+  context 'Winning for O' do
     context 'diagonal' do
       it 'can return O as the winner from diagonal forward' do
         expect_check_board_to_respond_with({ status: :O_wins }, [
@@ -162,7 +160,7 @@ describe CheckBoard do
     end
   end
 
-  xcontext 'Draw Conditions' do
+  context 'Draw Conditions' do
     it 'can return game over if all 9 squares are full and neither player has won ' do
       expect_check_board_to_respond_with({ status: :draw }, [
                                            %i[O X O],
@@ -172,11 +170,14 @@ describe CheckBoard do
     end
 
     it 'only return game over if all 9 squares are full and neither player has won' do
-      expect(check_board.execute([
-                                   %i[O X O],
-                                   [:X, '-', :O],
-                                   ['-', :O, :X]
-                                 ])).to eq([
+      
+      check_board = CheckBoard.new(player_gateway: double(get_board: [
+        %i[O X O],
+        [:X, '-', :O],
+        ['-', :O, :X]
+      ]))
+
+      expect(check_board.execute()).to eq([
                                              %i[O X O],
                                              [:X, '-', :O],
                                              ['-', :O, :X]

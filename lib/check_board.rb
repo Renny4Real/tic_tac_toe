@@ -1,13 +1,20 @@
 # frozen_string_literal: true
 
 class CheckBoard
-  def initialize
+  def initialize(player_gateway: player_gateway)
+    @player_gateway = player_gateway
     @score = ''
+    @check_score = @player_gateway.get_board
+    @board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
   end
 
-  def execute(board)
-    @check_score = board
-    print_score(board)
+  def execute(*)
+    if @player_gateway.get_board.nil?
+      @board 
+    else 
+      @check_score
+      print_score
+    end 
   end
 
   private
@@ -92,24 +99,23 @@ class CheckBoard
     { status: :draw }
   end
 
-  def print_score(board)
+  def print_score
     if win_X?
       @score = return_X_wins_status
     elsif win_O?
       @score = return_O_wins_status
-    elsif not_full?(board)
+    elsif not_full?
       @check_score
     else
       @score = return_draw_status
     end
   end
 
-  def count_marks(board)
-    @check_score = board
-    count_empty = @check_score.flatten.count('-')
+  def count_empty_dashes
+    @check_score.flatten.count('-')
   end
 
-  def not_full?(board)
-    count_marks(board) != 0
+  def not_full?
+    count_empty_dashes != 0
   end
 end
