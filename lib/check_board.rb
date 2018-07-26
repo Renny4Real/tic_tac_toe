@@ -8,7 +8,7 @@ class CheckBoard
   end
 
   def execute(*)
-    @player_gateway.get_board.nil? ? @board : print_status
+    @current_board.nil? ? @board : print_status
   end
 
   private
@@ -104,3 +104,4 @@ class CheckBoard
     9 - @current_board.flatten.count('-')
   end
 end
+
