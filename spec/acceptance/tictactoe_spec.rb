@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 describe 'a game of Tic Tac Toe' do
-  class InMemoryPlayerGateway
-    attr_accessor :get_board # name
-  end
 
   let(:view_board) { ViewBoard.new(player_gateway: player_gateway) }
   let(:place_mark) { PlaceMark.new(player_gateway: player_gateway) }
