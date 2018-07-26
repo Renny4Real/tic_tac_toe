@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
 describe CheckBoard do
-   
-
   def expect_check_board_to_respond_with(expected, board)
-    check_board = CheckBoard.new(player_gateway: double(get_board: board)) 
-    response = check_board.execute()
+    check_board = CheckBoard.new(player_gateway: double(get_board: board))
+    response = check_board.execute
     expect(response).to eq(expected)
   end
 
   it 'can return empty string for an empty board' do
-    check_board = CheckBoard.new(player_gateway: double(get_board: nil)) 
+    check_board = CheckBoard.new(player_gateway: double(get_board: nil))
     expect(check_board.execute).to eq([['-', '-', '-'],
-                                          ['-', '-', '-'],
-                                          ['-', '-', '-']])
+                                       ['-', '-', '-'],
+                                       ['-', '-', '-']])
   end
 
   context 'Winning for X' do
@@ -170,18 +168,17 @@ describe CheckBoard do
     end
 
     it 'only return game over if all 9 squares are full and neither player has won' do
-      
       check_board = CheckBoard.new(player_gateway: double(get_board: [
-        %i[O X O],
-        [:X, '-', :O],
-        ['-', :O, :X]
-      ]))
+                                                            %i[O X O],
+                                                            [:X, '-', :O],
+                                                            ['-', :O, :X]
+                                                          ]))
 
-      expect(check_board.execute()).to eq([
-                                             %i[O X O],
-                                             [:X, '-', :O],
-                                             ['-', :O, :X]
-                                           ])
+      expect(check_board.execute).to eq([
+                                          %i[O X O],
+                                          [:X, '-', :O],
+                                          ['-', :O, :X]
+                                        ])
     end
   end
 end

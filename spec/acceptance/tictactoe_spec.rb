@@ -8,86 +8,86 @@ describe 'a game of Tic Tac Toe' do
   let(:view_board) { ViewBoard.new(player_gateway: player_gateway) }
   let(:place_mark) { PlaceMark.new(player_gateway: player_gateway) }
   let(:player_gateway) { InMemoryPlayerGateway.new }
-  let(:check_board) { CheckBoard.new(player_gateway: player_gateway)}
+  let(:check_board) { CheckBoard.new(player_gateway: player_gateway) }
 
-  def expect_block(expected)
+  def expect_view_board_block(expected)
     response = view_board.execute
     board = response[:board]
     expect(board). to eq(expected)
-  end 
+  end
 
   def expect_check_board_block(expected)
     response = view_board.execute
     board = response[:board]
     expect(check_board.execute(board)). to eq(expected)
-  end 
+  end
 
   context 'Display Board' do
     it 'can display 3x3 board' do
-      expect_block([
-          ['-', '-', '-'],
-          ['-', '-', '-'],
-          ['-', '-', '-']
-        ])
-    end
-
-    it 'can display copy of the board' do
-      expect_check_board_block([
+      expect_view_board_block([
                                 ['-', '-', '-'],
                                 ['-', '-', '-'],
                                 ['-', '-', '-']
                               ])
     end
 
+    it 'can display copy of the board' do
+      expect_check_board_block([
+                                 ['-', '-', '-'],
+                                 ['-', '-', '-'],
+                                 ['-', '-', '-']
+                               ])
+    end
+
     it 'can display board after player one plays' do
       place_mark.execute(player: :X, x: 1, y: 1)
 
-      expect_block([
-        ['-', '-', '-'],
-        ['-', :X, '-'],
-        ['-', '-', '-']
-      ])
+      expect_view_board_block([
+                                ['-', '-', '-'],
+                                ['-', :X, '-'],
+                                ['-', '-', '-']
+                              ])
     end
 
     it 'can display board after player one plays with coordinates' do
       place_mark.execute(player: :X, x: 1, y: 1)
-      expect_block([
-          ['-', '-', '-'],
-          ['-', :X, '-'],
-          ['-', '-', '-']
-        ])
+      expect_view_board_block([
+                                ['-', '-', '-'],
+                                ['-', :X, '-'],
+                                ['-', '-', '-']
+                              ])
     end
 
     it 'can display board with O' do
       place_mark.execute(player: :O, x: 1, y: 1)
 
-      expect_block([
-          ['-', '-', '-'],
-          ['-', :O, '-'],
-          ['-', '-', '-']
-        ])
+      expect_view_board_block([
+                                ['-', '-', '-'],
+                                ['-', :O, '-'],
+                                ['-', '-', '-']
+                              ])
     end
 
     it 'can display board after player twos turn' do
       place_mark.execute(player: :O, x: 0, y: 0)
       place_mark.execute(player: :X, x: 1, y: 1)
 
-      expect_block([
-          [:O, '-', '-'],
-          ['-', :X, '-'],
-          ['-', '-', '-']
-        ])
+      expect_view_board_block([
+                                [:O, '-', '-'],
+                                ['-', :X, '-'],
+                                ['-', '-', '-']
+                              ])
     end
 
     it 'can place only one mark in one x,y coordinates' do
       place_mark.execute(player: :O, x: 0, y: 0)
       place_mark.execute(player: :X, x: 0, y: 0)
 
-      expect_block([
-          [:O, '-', '-'],
-          ['-', '-', '-'],
-          ['-', '-', '-']
-        ])
+      expect_view_board_block([
+                                [:O, '-', '-'],
+                                ['-', '-', '-'],
+                                ['-', '-', '-']
+                              ])
     end
 
     it 'can place multiple marks' do
@@ -95,11 +95,11 @@ describe 'a game of Tic Tac Toe' do
       place_mark.execute(player: :X, x: 0, y: 0)
       place_mark.execute(player: :X, x: 1, y: 1)
 
-      expect_block([
-          [:O, '-', '-'],
-          ['-', :X, '-'],
-          ['-', '-', '-']
-        ])
+      expect_view_board_block([
+                                [:O, '-', '-'],
+                                ['-', :X, '-'],
+                                ['-', '-', '-']
+                              ])
     end
   end
 
@@ -111,7 +111,7 @@ describe 'a game of Tic Tac Toe' do
         place_mark.execute(player: :X, x: 0, y: 0)
         place_mark.execute(player: :O, x: 1, y: 2)
         place_mark.execute(player: :X, x: 2, y: 2)
-        
+
         expect_check_board_block(status: :X_wins)
       end
 
@@ -306,10 +306,10 @@ describe 'a game of Tic Tac Toe' do
       place_mark.execute(player: :O, x: 2, y: 1)
 
       expect_check_board_block([
-                                                  %i[O X O],
-                                                  [:X, '-', :O],
-                                                  ['-', :O, :X]
-                                                ])
+                                 %i[O X O],
+                                 [:X, '-', :O],
+                                 ['-', :O, :X]
+                               ])
     end
   end
 end

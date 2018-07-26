@@ -10,11 +10,10 @@ class CheckBoard
 
   def execute(*)
     if @player_gateway.get_board.nil?
-      @board 
-    else 
-      @check_score
+      @board
+    else
       print_score
-    end 
+    end
   end
 
   private
@@ -104,18 +103,14 @@ class CheckBoard
       @score = return_X_wins_status
     elsif win_O?
       @score = return_O_wins_status
-    elsif not_full?
+    elsif count_dashes != 9
       @check_score
     else
       @score = return_draw_status
     end
   end
 
-  def count_empty_dashes
-    @check_score.flatten.count('-')
-  end
-
-  def not_full?
-    count_empty_dashes != 0
+  def count_dashes
+    9 - @check_score.flatten.count('-')
   end
 end

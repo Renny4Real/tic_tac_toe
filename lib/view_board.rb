@@ -13,5 +13,4 @@ class ViewBoard
       { board: @player_gateway.get_board }
     end
   end
-  
 end

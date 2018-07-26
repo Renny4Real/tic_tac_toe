@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 describe PlaceMark do
-
   it 'puts X after player turn ' do
     player_gateway = spy
     update_board = PlaceMark.new(player_gateway: player_gateway)
