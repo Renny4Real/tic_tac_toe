@@ -12,9 +12,7 @@ class PlaceMark
     if check_dup?(x, y)
       { board: @board }
     else
-      @board.each do |_b|
-        @board[x][y] = player
-      end
+      @board.each { @board[x][y] = player }
     end
     @player_gateway.get_board = @board
     { board: @board }
@@ -23,6 +21,14 @@ class PlaceMark
   private
 
   def check_dup?(x, y)
-    @board[x][y] == :O || @board[x][y] == :X
+    coordinate_has_O?(x,y) || coordinate_has_X?(x,y)
+  end
+
+  def coordinate_has_O?(x,y)
+    @board[x][y] == :O
+  end
+
+  def coordinate_has_X?(x,y)
+    @board[x][y] == :X
   end
 end
