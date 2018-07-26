@@ -6,7 +6,7 @@ class ViewBoard
     @board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
   end
 
-  def execute(*)
+  def execute
     if @player_gateway.get_board.nil?
       { board: @board }
     else
