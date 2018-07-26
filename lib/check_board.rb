@@ -1,19 +1,14 @@
 # frozen_string_literal: true
 
 class CheckBoard
-  def initialize
-    @score = ''
-    @empty_board = [
-      ['-', '-', '-'],
-      ['-', '-', '-'],
-      ['-', '-', '-']
-    ]
+  def initialize(player_gateway: player_gateway)
+    @player_gateway = player_gateway
+    @current_board = @player_gateway.get_board
+    @board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
   end
 
-  def execute(board)
-    @check_score = board
-    return @score = '' if @check_score == @empty_board
-    print_score(board)
+  def execute(*)
+    @player_gateway.get_board.nil? ? @board : print_status
   end
 
   private
@@ -39,74 +34,73 @@ class CheckBoard
   end
 
   def diagonal_forward?(type)
-    @check_score[0][0] == type && @check_score[1][1] == type && @check_score[2][2] == type
+    @current_board[0][0] == type \
+    && @current_board[1][1] == type \
+    && @current_board[2][2] == type
   end
 
   def diagonal_backward?(type)
-    @check_score[0][2] == type && @check_score[1][1] == type && @check_score[2][0] == type
+    @current_board[0][2] == type \
+    && @current_board[1][1] == type \
+    && @current_board[2][0] == type
   end
 
   def vertical_left?(type)
-    @check_score[0][0] == type && @check_score[1][0] == type && @check_score[2][0] == type
+    @current_board[0][0] == type \
+    && @current_board[1][0] == type \
+    && @current_board[2][0] == type
   end
 
   def vertical_middle?(type)
-    @check_score[0][1] == type && @check_score[1][1] == type && @check_score[2][1] == type
+    @current_board[0][1] == type \
+    && @current_board[1][1] == type \
+    && @current_board[2][1] == type
   end
 
   def vertical_right?(type)
-    @check_score[0][2] == type && @check_score[1][2] == type && @check_score[2][2] == type
+    @current_board[0][2] == type \
+    && @current_board[1][2] == type \
+    && @current_board[2][2] == type
   end
 
   def horizontal_top?(type)
-    @check_score[0][0] == type && @check_score[0][1] == type && @check_score[0][2] == type
+    @current_board[0][0] == type \
+    && @current_board[0][1] == type \
+    && @current_board[0][2] == type
   end
 
   def horizontal_middle?(type)
-    @check_score[1][0] == type && @check_score[1][1] == type && @check_score[1][2] == type
+    @current_board[1][0] == type \
+    && @current_board[1][1] == type \
+    && @current_board[1][2] == type
   end
 
   def horizontal_bottom?(type)
-    @check_score[2][0] == type && @check_score[2][1] == type && @check_score[2][2] == type
+    @current_board[2][0] == type \
+    && @current_board[2][1] == type \
+    && @current_board[2][2] == type
   end
 
-  def print_score_X
+  def return_X_wins_status
     { status: :X_wins }
   end
 
-  def print_score_O
+  def return_O_wins_status
     { status: :O_wins }
   end
 
-  def print_game_over
+  def return_draw_status
     { status: :draw }
   end
 
-  def print_score(board)
-    if win_X?
-      @score = print_score_X
-    elsif win_O?
-      @score = print_score_O
-    elsif not_full?(board)
-      @check_score
-    else
-      @score = print_game_over
-    end
+  def print_status
+      return return_X_wins_status if win_X?
+      return return_O_wins_status if win_O?
+      return @current_board if count_dashes != 9
+      return_draw_status
   end
 
-  def count_marks(board)
-    count = 0
-    @check_score = board
-    @check_score.each do |sub_array|
-      sub_array.each do |s|
-        count += 1 if s == :X || s == :O
-      end
-      count
-    end
-    count
-  end
-
-  def not_full?(board)
-    count_marks(board) < 9
+  def count_dashes
+    9 - @current_board.flatten.count('-')
   end
 end

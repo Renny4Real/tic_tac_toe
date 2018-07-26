@@ -1,23 +1,40 @@
 # frozen_string_literal: true
 
 describe PlaceMark do
-  it 'puts X after players turn ' do
+  it 'puts X after player turn ' do
     player_gateway = spy
-    PlaceMark.new(player_gateway: player_gateway).execute(player: :X, x: 1, y: 1)
-    expect(player_gateway).to have_received(:placing_xos=) do |player|
-      expect(player.type).to eq(:X)
-      expect(player.x_coordinate).to eq(1)
-      expect(player.y_coordinate).to eq(1)
-    end
+    update_board = PlaceMark.new(player_gateway: player_gateway)
+    response = update_board.execute(player: :X, x: 1, y: 0)
+    expect(response).to eq(board: [
+                             ['-', '-', '-'],
+                             [:X, '-', '-'],
+                             ['-', '-', '-']
+                           ])
   end
 
-  it 'puts O after players turn ' do
+  it 'puts X and then O after player X turn ' do
     player_gateway = spy
-    PlaceMark.new(player_gateway: player_gateway).execute(player: :O, x: 0, y: 0)
-    expect(player_gateway).to have_received(:placing_xos=) do |player|
-      expect(player.type).to eq(:O)
-      expect(player.x_coordinate).to eq(0)
-      expect(player.y_coordinate).to eq(0)
-    end
+    update_board = PlaceMark.new(player_gateway: player_gateway)
+    update_board.execute(player: :O, x: 0, y: 0)
+    response = update_board.execute(player: :X, x: 1, y: 0)
+    expect(response).to eq(board: [
+                             [:O, '-', '-'],
+                             [:X, '-', '-'],
+                             ['-', '-', '-']
+                           ])
+  end
+
+  it 'puts X and O multiple times ' do
+    player_gateway = spy
+    update_board = PlaceMark.new(player_gateway: player_gateway)
+    update_board.execute(player: :O, x: 0, y: 0)
+    update_board.execute(player: :X, x: 2, y: 2)
+    update_board.execute(player: :O, x: 1, y: 1)
+    response = update_board.execute(player: :X, x: 1, y: 0)
+    expect(response).to eq(board: [
+                             [:O, '-', '-'],
+                             [:X, :O, '-'],
+                             ['-', '-', :X]
+                           ])
   end
 end
