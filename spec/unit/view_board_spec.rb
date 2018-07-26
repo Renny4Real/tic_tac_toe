@@ -12,7 +12,6 @@ describe ViewBoard do
 
   it 'can view a board with an X piece with coordinates in 0,0' do
     player_gateway = double(placing_xos: Player.new(:X, 0, 0))
-
     view_board = ViewBoard.new(player_gateway: player_gateway)
     expect(view_board.execute).to eq(board: [
                                        [:X, '-', '-'],
@@ -23,7 +22,6 @@ describe ViewBoard do
 
   it 'can view a board with an X piece coordinates in 1,1' do
     player_gateway = double(placing_xos: Player.new(:X, 1, 1))
-
     view_board = ViewBoard.new(player_gateway: player_gateway)
     expect(view_board.execute).to eq(board: [
                                        ['-', '-', '-'],
@@ -83,7 +81,6 @@ describe ViewBoard do
 
   it 'can view a board with an O piece coordinates in 1,1' do
     player_gateway = double(placing_xos: Player.new(:O, 1, 1))
-
     view_board = ViewBoard.new(player_gateway: player_gateway)
     expect(view_board.execute).to eq(board: [
                                        ['-', '-', '-'],
