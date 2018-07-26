@@ -12,7 +12,7 @@ class PlaceMark
     if check_dup?(x, y)
       { board: @board }
     else
-      @board.each { @board[x][y] = player }
+       @board[x][y] = player 
     end
     @player_gateway.get_board = @board
     { board: @board }
