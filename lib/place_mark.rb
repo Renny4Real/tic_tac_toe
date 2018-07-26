@@ -21,14 +21,7 @@ class PlaceMark
   private
 
   def check_dup?(x, y)
-    coordinate_has_O?(x,y) || coordinate_has_X?(x,y)
+    @board[x][y] != '-'
   end
-
-  def coordinate_has_O?(x,y)
-    @board[x][y] == :O
-  end
-
-  def coordinate_has_X?(x,y)
-    @board[x][y] == :X
-  end
+  
 end
