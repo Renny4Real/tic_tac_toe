@@ -13,12 +13,8 @@ class CheckBoard
 
   private
 
-  def win_X?
-    diagonal?(:X) || vertical?(:X) || horizontal?(:X)
-  end
-
-  def win_O?
-    diagonal?(:O) || vertical?(:O) || horizontal?(:O)
+  def win?(type)
+    diagonal?(type) || vertical?(type) || horizontal?(type)
   end
 
   def diagonal?(type)
@@ -34,51 +30,35 @@ class CheckBoard
   end
 
   def diagonal_forward?(type)
-    @current_board[0][0] == type \
-    && @current_board[1][1] == type \
-    && @current_board[2][2] == type
+    [@current_board[0][0], @current_board[1][1], @current_board[2][2]] == [type,type,type]
   end
 
   def diagonal_backward?(type)
-    @current_board[0][2] == type \
-    && @current_board[1][1] == type \
-    && @current_board[2][0] == type
+    [@current_board[0][2], @current_board[1][1], @current_board[2][0]] == [type,type,type]
   end
 
   def vertical_left?(type)
-    @current_board[0][0] == type \
-    && @current_board[1][0] == type \
-    && @current_board[2][0] == type
+    [@current_board[0][0], @current_board[1][0], @current_board[2][0]] == [type, type, type]
   end
 
   def vertical_middle?(type)
-    @current_board[0][1] == type \
-    && @current_board[1][1] == type \
-    && @current_board[2][1] == type
+    [@current_board[0][1], @current_board[1][1], @current_board[2][1]] == [type,type,type]
   end
 
   def vertical_right?(type)
-    @current_board[0][2] == type \
-    && @current_board[1][2] == type \
-    && @current_board[2][2] == type
+    [@current_board[0][2], @current_board[1][2], @current_board[2][2]] == [type,type,type]
   end
 
   def horizontal_top?(type)
-    @current_board[0][0] == type \
-    && @current_board[0][1] == type \
-    && @current_board[0][2] == type
+    [@current_board[0][0], @current_board[0][1], @current_board[0][2]] == [type,type,type]
   end
 
   def horizontal_middle?(type)
-    @current_board[1][0] == type \
-    && @current_board[1][1] == type \
-    && @current_board[1][2] == type
+    [@current_board[1][0], @current_board[1][1], @current_board[1][2]] == [type,type,type]
   end
 
   def horizontal_bottom?(type)
-    @current_board[2][0] == type \
-    && @current_board[2][1] == type \
-    && @current_board[2][2] == type
+    [@current_board[2][0], @current_board[2][1], @current_board[2][2]] == [type,type,type]
   end
 
   def return_X_wins_status
@@ -94,8 +74,8 @@ class CheckBoard
   end
 
   def print_status
-      return return_X_wins_status if win_X?
-      return return_O_wins_status if win_O?
+      return return_X_wins_status if win?(:X)
+      return return_O_wins_status if win?(:O)
       return @current_board if count_dashes != 9
       return_draw_status
   end
