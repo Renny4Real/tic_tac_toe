@@ -2,7 +2,7 @@
 
 describe CheckBoard do
   def expect_check_board_to_respond_with(expected, board)
-    check_board = CheckBoard.new(player_gateway: double(get_board: board))
+    check_board = CheckBoard.new(board: board)
     response = check_board.execute
     expect(response).to eq(expected)
   end
@@ -11,9 +11,9 @@ describe CheckBoard do
     expect_check_board_to_respond_with([['-', '-', '-'],
                                         ['-', '-', '-'],
                                         ['-', '-', '-']], 
-                                      [['-', '-', '-'],
-                                       ['-', '-', '-'],
-                                       ['-', '-', '-']])
+      [['-', '-', '-'],
+        ['-', '-', '-'],
+        ['-', '-', '-']])
   end
 
   context 'Winning for X' do
