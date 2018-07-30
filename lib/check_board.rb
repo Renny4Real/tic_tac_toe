@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class CheckBoard
-  def initialize(player_gateway: player_gateway)
-    @player_gateway = player_gateway
-    @current_board = @player_gateway.get_board
+  def initialize(board: board)
+    @current_board = board
     @board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
   end
 
