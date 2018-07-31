@@ -9,20 +9,13 @@ class PlaceMark
   end
 
   def execute(player:, x:, y:)
-    if check_dup?(x, y)
+    if [:O, :X].include? (@board[x][y])
       { board: @board }
     else
-      @board.each do |_b|
-        @board[x][y] = player
-      end
+       @board[x][y] = player 
     end
     @player_gateway.get_board = @board
     { board: @board }
   end
-
-  private
-
-  def check_dup?(x, y)
-    @board[x][y] == :O || @board[x][y] == :X
-  end
+  
 end
