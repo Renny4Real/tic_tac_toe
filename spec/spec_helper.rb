@@ -3,7 +3,6 @@
 require 'view_board'
 require 'place_mark'
 require 'player'
-require 'current_board'
 require 'check_board'
 
 RSpec.configure do |config|
