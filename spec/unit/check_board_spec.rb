@@ -10,10 +10,10 @@ describe CheckBoard do
   it 'can return empty string for an empty board' do
     expect_check_board_to_respond_with([['-', '-', '-'],
                                         ['-', '-', '-'],
-                                        ['-', '-', '-']], 
-      [['-', '-', '-'],
-        ['-', '-', '-'],
-        ['-', '-', '-']])
+                                        ['-', '-', '-']],
+                                       [['-', '-', '-'],
+                                        ['-', '-', '-'],
+                                        ['-', '-', '-']])
   end
 
   context 'Winning for X' do
@@ -171,14 +171,13 @@ describe CheckBoard do
 
     it 'only return game over if all 9 squares are full and neither player has won' do
       expect_check_board_to_respond_with([
-                                          %i[O X O],
-                                          [:X, '-', :O],
-                                          ['-', :O, :X]
-                                        ],
+                                           %i[O X O],
+                                           [:X, '-', :O],
+                                           ['-', :O, :X]
+                                         ],
                                          [%i[O X O],
                                           [:X, '-', :O],
-                                          ['-', :O, :X]
-                                        ])
+                                          ['-', :O, :X]])
     end
   end
 end
