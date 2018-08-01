@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Creates new player mark and position and places on the board
+require 'AI'
 
 class PlaceMark
   def initialize(player_gateway:)
@@ -8,58 +9,36 @@ class PlaceMark
     @board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
   end
 
-  def execute(player:, x:, y:)
-    if [:O, :X].include? (@board[x][y])
-      { board: @board }
-    else
-       @board[x][y] = player 
+  def execute(player:, x: 'row', y: 'column')
+    if player == :O && x == 'row'
+      move = best_play
+      x = assign_x_coordinate(move)
+      y = assign_y_coordinate(move)
     end
-    @player_gateway.get_board = @board
-    { board: @board }
+
+    return { board: @board } if %i[O X].include?(@board[x][y])
+    @board[x][y] = player
+    update_saved_board
   end
 
   def best_play
-    if @board.flatten.count('-') == 1
-      @board = @board.flatten
-      @board[@board.index('-')] = :O
-      @board = @board.each_slice(3).to_a
-    else
-      scores = check_next_moves
-      best_index = scores.index(scores.max)
-      @board = @board.flatten
-      @board[best_index] = :O
-      @board = @board.each_slice(3).to_a
-    end
-    @player_gateway.get_board = @board
-    { board: @board }
+    AI.new(board: @board).execute
   end
 
   private
 
-  def check_next_moves
-    temp_board = @board
-    scores = []
-    temp_board.each_index do |sub|
-      temp_board[sub].each_index do |index|
-       if !(temp_board[sub][index] == '-')
-        scores.push(-50)
-        next
-       end
-       temp_board[sub][index] = :O
-       scores.push(assign_score(temp_board))
-       temp_board[sub][index] = '-'
-      end
-    end
-    scores
+  def update_saved_board
+    @player_gateway.get_board = @board
+    { board: @board }
   end
 
-  def assign_score(board)
-    check_board = CheckBoard.new(board: board)
-
-    return 10 if check_board.execute() == { status: :O_wins }
-    return 0 if check_board.execute() == { status: :draw}
-    -10
+  def assign_x_coordinate(move)
+    return 0 if move <= 2
+    return 1 if [3, 4, 5].include?(move)
+    2
   end
 
-  
+  def assign_y_coordinate(move)
+    move % 3
+  end
 end
