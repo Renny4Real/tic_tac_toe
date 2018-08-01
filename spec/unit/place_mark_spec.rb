@@ -8,7 +8,7 @@ describe PlaceMark do
 
   def play_turns(*args)
     board = update_board(spy)
-#    turns = ARGV
+    #    turns = ARGV
     args.each do |turn|
       board.execute(player: turn[0], x: turn[1], y: turn[2])
     end
@@ -50,82 +50,79 @@ describe PlaceMark do
   end
 
   it 'picks the best move' do
-    board = play_turns([:O, 2, 0],[:X, 0, 0], [:O, 0, 2], [:X, 2, 1], [:O, 1, 0], [:X, 2, 2])
+    board = play_turns([:O, 2, 0], [:X, 0, 0], [:O, 0, 2], [:X, 2, 1], [:O, 1, 0], [:X, 2, 2])
 
-    response = board.best_play
+    response = board.execute(player: :O)
 
     expect(response).to eq(board: [
-      [:X, '-', :O],
-      [:O, :O, '-'],
-      [:O, :X, :X]
-    ])
+                             [:X, '-', :O],
+                             [:O, :O, '-'],
+                             %i[O X X]
+                           ])
   end
 
   it 'can pick the only option left on the board' do
     board = play_turns([:X, 1, 2], [:O, 0, 0], [:X, 2, 0], [:O, 0, 2], [:X, 0, 1],
-                        [:O, 1, 0], [:X, 1, 1], [:O, 2, 2])
+                       [:O, 1, 0], [:X, 1, 1], [:O, 2, 2])
 
-
-    response = board.best_play
+    response = board.execute(player: :O)
 
     expect(response).to eq(board: [
-      [:O, :X, :O],
-      [:O, :X, :X],
-      [:X, :O, :O]
-    ])
+                             %i[O X O],
+                             %i[O X X],
+                             %i[X O O]
+                           ])
   end
 
   it 'can pick another only option left on the board' do
     board = play_turns([:O, 2, 1], [:X, 0, 0], [:O, 0, 2], [:X, 0, 1],
-               [:O, 1, 0], [:X, 1, 1], [:O, 2, 2], [:X, 1, 2])
+                       [:O, 1, 0], [:X, 1, 1], [:O, 2, 2], [:X, 1, 2])
 
-    response = board.best_play
+    response = board.execute(player: :O)
 
     expect(response).to eq(board: [
-      [:X, :X, :O],
-      [:O, :X, :X],
-      [:O, :O, :O]
-    ])
+                             %i[X X O],
+                             %i[O X X],
+                             %i[O O O]
+                           ])
   end
 
   it 'can pick a winning solution from two options' do
-    board = play_turns([:X, 0, 0], [:O, 0, 2], [:X, 0, 1], [:O, 1, 2], 
-                        [:X, 2, 0], [:O, 2, 1], [:X, 1, 1])
-    
-                        response = board.best_play
+    board = play_turns([:X, 0, 0], [:O, 0, 2], [:X, 0, 1], [:O, 1, 2],
+                       [:X, 2, 0], [:O, 2, 1], [:X, 1, 1])
+
+    response = board.execute(player: :O)
 
     expect(response).to eq(board: [
-      [:X, :X, :O],
-      ['-', :X, :O],
-      [:X, :O, :O]
-    ])
+                             %i[X X O],
+                             ['-', :X, :O],
+                             %i[X O O]
+                           ])
   end
 
   it 'can pick a winning solution from two options' do
-    board = play_turns([:X, 1, 1], [:O, 0, 0], [:X, 1, 2], [:O, 0, 2], 
-                        [:X, 2, 0], [:O, 1, 0], [:X, 2, 2])
-    
-    response = board.best_play
+    board = play_turns([:X, 1, 1], [:O, 0, 0], [:X, 1, 2], [:O, 0, 2],
+                       [:X, 2, 0], [:O, 1, 0], [:X, 2, 2])
+
+    response = board.execute(player: :O)
 
     expect(response).to eq(board: [
-      [:O, :O, :O],
-      [:O, :X, :X],
-      [:X, '-', :X]
-    ])
+                             %i[O O O],
+                             %i[O X X],
+                             [:X, '-', :X]
+                           ])
   end
 
-  xit 'can pick draw over a loss from two options' do
+  it 'can pick draw over a loss from two options' do
     board = play_turns([:X, 0, 0], [:O, 0, 1], [:X, 0, 2], [:O, 1, 2],
                        [:X, 2, 1], [:O, 2, 0], [:X, 2, 2])
 
-    response = board.best_play
+    response = board.execute(player: :O)
 
     expect(response).to eq(board: [
-      [:X, :O, :X], 
-      ['-', :O, :O],
-      [:O, :X, :X]
-    ])
+                             %i[X O X],
+                             ['-', :O, :O],
+                             %i[O X X]
+                           ])
   end
-
-
 end
