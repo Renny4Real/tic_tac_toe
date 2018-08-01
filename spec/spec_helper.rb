@@ -5,6 +5,7 @@ require 'place_mark'
 require 'player'
 require 'check_board'
 require 'player_gateway'
+require 'AI'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
