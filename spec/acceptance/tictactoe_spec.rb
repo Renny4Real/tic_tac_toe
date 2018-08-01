@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 describe 'a game of Tic Tac Toe' do
-
   let(:view_board) { ViewBoard.new(player_gateway: player_gateway) }
   let(:place_mark) { PlaceMark.new(player_gateway: player_gateway) }
   let(:player_gateway) { InMemoryPlayerGateway.new }
-  let(:check_board)   do 
+  let(:check_board) do
     board = player_gateway.get_board
-     CheckBoard.new(board: board) 
+    CheckBoard.new(board: board)
   end
 
   def expect_view_board_block(expected)
@@ -27,7 +26,6 @@ describe 'a game of Tic Tac Toe' do
       place_mark.execute(player: mark[0], x: mark[1], y: mark[2])
     end
   end
-
 
   context 'Display Board' do
     it 'can display 3x3 board' do
@@ -108,8 +106,6 @@ describe 'a game of Tic Tac Toe' do
       it 'determines the winner when theres a X match diagonal backward' do
         place_marks([:X, 0, 2], [:O, 0, 1], [:X, 1, 1], [:O, 1, 2], [:X, 2, 0])
 
-        response = view_board.execute
-        board = response[:board]
         expect_check_board_block(status: :X_wins)
       end
     end
@@ -136,19 +132,19 @@ describe 'a game of Tic Tac Toe' do
 
     context 'horizontal' do
       it 'determines the winner when theres a X match horizontal top' do
-        place_marks([:X, 0 , 0], [:O, 1, 1], [:X, 0, 1], [:O, 1, 0], [:X, 0, 2])
+        place_marks([:X, 0, 0], [:O, 1, 1], [:X, 0, 1], [:O, 1, 0], [:X, 0, 2])
 
         expect_check_board_block(status: :X_wins)
       end
 
       it 'determines the winner when theres a X match horizontal middle' do
-        place_marks([:X, 1 , 0], [:O, 0, 1], [:X, 1, 1], [:O, 2, 0], [:X, 1, 2])
+        place_marks([:X, 1, 0], [:O, 0, 1], [:X, 1, 1], [:O, 2, 0], [:X, 1, 2])
 
         expect_check_board_block(status: :X_wins)
       end
 
       it 'determines the winner when theres a X match horizontal bottom' do
-        place_marks([:X, 2 , 0], [:O, 1, 1], [:X, 2, 1], [:O, 1, 0], [:X, 2, 2])
+        place_marks([:X, 2, 0], [:O, 1, 1], [:X, 2, 1], [:O, 1, 0], [:X, 2, 2])
 
         expect_check_board_block(status: :X_wins)
       end
@@ -158,14 +154,13 @@ describe 'a game of Tic Tac Toe' do
   context 'O Winning Conditions' do
     context 'diagonal' do
       it 'determines the winner when theres a O match diagonal forward' do
-        place_marks([:O, 1 , 1], [:X, 0, 2], [:O, 0, 0], [:X, 1, 2], [:O, 2, 2])
+        place_marks([:O, 1, 1], [:X, 0, 2], [:O, 0, 0], [:X, 1, 2], [:O, 2, 2])
 
         expect_check_board_block(status: :O_wins)
       end
 
       it 'determines the winner when theres a O match diagonal backward' do
-        place_marks([:O, 0 , 2], [:X, 0, 1], [:O, 1, 1], [:X, 1, 2], [:O, 2, 0])
-
+        place_marks([:O, 0, 2], [:X, 0, 1], [:O, 1, 1], [:X, 1, 2], [:O, 2, 0])
 
         expect_check_board_block(status: :O_wins)
       end
@@ -173,20 +168,19 @@ describe 'a game of Tic Tac Toe' do
 
     context 'vertical' do
       it 'determines the winner when theres a O match vertical left' do
-        place_marks([:O, 0 , 0], [:X, 0, 1], [:O, 1, 0], [:X, 1, 2], [:O, 2, 0])
+        place_marks([:O, 0, 0], [:X, 0, 1], [:O, 1, 0], [:X, 1, 2], [:O, 2, 0])
 
         expect_check_board_block(status: :O_wins)
       end
 
       it 'determines the winner when theres a O match vertical middle' do
-        place_marks([:O, 0 , 1], [:X, 0, 0], [:O, 1, 1], [:X, 1, 2], [:O, 2, 1])
+        place_marks([:O, 0, 1], [:X, 0, 0], [:O, 1, 1], [:X, 1, 2], [:O, 2, 1])
 
         expect_check_board_block(status: :O_wins)
       end
 
       it 'determines the winner when theres a O match vertical right' do
-        place_marks([:O, 0 , 2], [:X, 0, 1], [:O, 1, 2], [:X, 1, 0], [:O, 2, 2])
-
+        place_marks([:O, 0, 2], [:X, 0, 1], [:O, 1, 2], [:X, 1, 0], [:O, 2, 2])
 
         expect_check_board_block(status: :O_wins)
       end
@@ -194,19 +188,19 @@ describe 'a game of Tic Tac Toe' do
 
     context 'horizontal' do
       it 'determines the winner when theres a O match horizontal top' do
-        place_marks([:O, 0 , 0], [:X, 1, 1], [:O, 0, 1], [:X, 1, 0], [:O, 0, 2])
+        place_marks([:O, 0, 0], [:X, 1, 1], [:O, 0, 1], [:X, 1, 0], [:O, 0, 2])
 
         expect_check_board_block(status: :O_wins)
       end
 
       it 'determines the winner when theres a O match horizontal middle' do
-        place_marks([:O, 1 , 0], [:X, 0, 1], [:O, 1, 1], [:X, 2, 0], [:O, 1, 2])
+        place_marks([:O, 1, 0], [:X, 0, 1], [:O, 1, 1], [:X, 2, 0], [:O, 1, 2])
 
         expect_check_board_block(status: :O_wins)
       end
 
       it 'determines the winner when theres a O match horizontal bottom' do
-        place_marks([:O, 2 , 0], [:X, 1, 1], [:O, 2, 1], [:X, 1, 0], [:O, 2, 2])
+        place_marks([:O, 2, 0], [:X, 1, 1], [:O, 2, 1], [:X, 1, 0], [:O, 2, 2])
 
         expect_check_board_block(status: :O_wins)
       end
@@ -215,14 +209,14 @@ describe 'a game of Tic Tac Toe' do
 
   context 'Draw conditions' do
     it 'All 9 squares are full and neither player has won' do
-      place_marks([:O, 0 , 0], [:X, 0, 1], [:O, 0, 2], [:X, 1, 0], [:O, 2, 0], [:X, 1, 1],
+      place_marks([:O, 0, 0], [:X, 0, 1], [:O, 0, 2], [:X, 1, 0], [:O, 2, 0], [:X, 1, 1],
                   [:O, 1, 2], [:X, 2, 2], [:O, 2, 1])
 
       expect_check_board_block(status: :draw)
     end
 
     it 'only return game over if all 9 squares are full and neither player has won' do
-      place_marks([:O, 0 , 0], [:X, 0, 1], [:O, 0, 2], [:X, 1, 0],
+      place_marks([:O, 0, 0], [:X, 0, 1], [:O, 0, 2], [:X, 1, 0],
                   [:O, 1, 2], [:X, 2, 2], [:O, 2, 1])
 
       expect_check_board_block([
@@ -237,19 +231,19 @@ describe 'a game of Tic Tac Toe' do
     it 'can play a winning move' do
       place_marks([:O, 2, 0], [:X, 0, 0], [:O, 1, 0], [:X, 2, 1], [:O, 0, 2], [:X, 2, 2])
 
-      place_mark.best_play 
+      place_mark.execute(player: :O)
 
       expect_view_board_block([
                                 [:X, '-', :O],
                                 [:O, :O, '-'],
-                                [:O, :X, :X]
+                                %i[O X X]
                               ])
     end
 
-    xit 'can play the second best starting move' do
+    it 'can play the second best starting move' do
       place_marks([:X, 0, 0])
 
-      place_mark.best_play
+      place_mark.execute(player: :O)
       expect_view_board_block([
                                 [:X, '-', '-'],
                                 ['-', :O, '-'],
