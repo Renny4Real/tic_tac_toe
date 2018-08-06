@@ -9,3 +9,5 @@ gem 'guard-rspec', require: false
 gem 'guard-rubocop'
 gem 'json'
 gem 'rspec'
+gem 'sinatra'
+gem 'rack-test'
