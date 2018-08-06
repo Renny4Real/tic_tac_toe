@@ -3,14 +3,17 @@
 class ViewBoard
   def initialize(player_gateway:)
     @player_gateway = player_gateway
-    @board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
   end
 
   def execute
-    if @player_gateway.get_board.nil?
-      { board: @board }
+    current_game = @player_gateway.retrieve_board
+    if @player_gateway.game_start
+      { board: NEW_BOARD, status: nil }
     else
-      { board: @player_gateway.get_board }
+      status = CheckBoard.new(board: current_game).execute
+      { board: current_game, status: status }
     end
   end
+
+  NEW_BOARD = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']].freeze
 end
