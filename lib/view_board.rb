@@ -16,4 +16,5 @@ class ViewBoard
   end
 
   NEW_BOARD = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']].freeze
+  
 end
