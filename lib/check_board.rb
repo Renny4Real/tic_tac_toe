@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 class CheckBoard
-  def initialize(player_gateway: player_gateway)
-    @player_gateway = player_gateway
-    @current_board = @player_gateway.get_board
-    @board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
+  def initialize(board:)
+    @board = board
+    @new_board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
   end
 
   def execute(*)
-    @current_board.nil? ? @board : print_status
+    @board.nil? ? @new_board : print_status
   end
 
   private
@@ -22,43 +21,43 @@ class CheckBoard
   end
 
   def vertical?(type)
-    vertical_left?(type) || vertical_middle?(type) || vertical_right?(type)
+    left_column?(type) || middle_column?(type) || right_column?(type)
   end
 
   def horizontal?(type)
-    horizontal_top?(type) || horizontal_middle?(type) || horizontal_bottom?(type)
+    top_row?(type) || middle_row?(type) || bottom_row?(type)
   end
 
   def diagonal_forward?(type)
-    [@current_board[0][0], @current_board[1][1], @current_board[2][2]] == [type,type,type]
+    [@board[0][0], @board[1][1], @board[2][2]] == [type, type, type]
   end
 
   def diagonal_backward?(type)
-    [@current_board[0][2], @current_board[1][1], @current_board[2][0]] == [type,type,type]
+    [@board[0][2], @board[1][1], @board[2][0]] == [type, type, type]
   end
 
-  def vertical_left?(type)
-    [@current_board[0][0], @current_board[1][0], @current_board[2][0]] == [type, type, type]
+  def left_column?(type)
+    [@board[0][0], @board[1][0], @board[2][0]] == [type, type, type]
   end
 
-  def vertical_middle?(type)
-    [@current_board[0][1], @current_board[1][1], @current_board[2][1]] == [type,type,type]
+  def middle_column?(type)
+    [@board[0][1], @board[1][1], @board[2][1]] == [type, type, type]
   end
 
-  def vertical_right?(type)
-    [@current_board[0][2], @current_board[1][2], @current_board[2][2]] == [type,type,type]
+  def right_column?(type)
+    [@board[0][2], @board[1][2], @board[2][2]] == [type, type, type]
   end
 
-  def horizontal_top?(type)
-    [@current_board[0][0], @current_board[0][1], @current_board[0][2]] == [type,type,type]
+  def top_row?(type)
+    [@board[0][0], @board[0][1], @board[0][2]] == [type, type, type]
   end
 
-  def horizontal_middle?(type)
-    [@current_board[1][0], @current_board[1][1], @current_board[1][2]] == [type,type,type]
+  def middle_row?(type)
+    [@board[1][0], @board[1][1], @board[1][2]] == [type, type, type]
   end
 
-  def horizontal_bottom?(type)
-    [@current_board[2][0], @current_board[2][1], @current_board[2][2]] == [type,type,type]
+  def bottom_row?(type)
+    [@board[2][0], @board[2][1], @board[2][2]] == [type, type, type]
   end
 
   def return_X_wins_status
@@ -74,14 +73,13 @@ class CheckBoard
   end
 
   def print_status
-      return return_X_wins_status if win?(:X)
-      return return_O_wins_status if win?(:O)
-      return @current_board if count_dashes != 9
-      return_draw_status
+    return return_X_wins_status if win?(:X)
+    return return_O_wins_status if win?(:O)
+    return @board if count_dashes != 9
+    return_draw_status
   end
 
   def count_dashes
-    9 - @current_board.flatten.count('-')
+    9 - @board.flatten.count('-')
   end
 end
-
