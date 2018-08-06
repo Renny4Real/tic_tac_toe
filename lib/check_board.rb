@@ -3,11 +3,13 @@
 class CheckBoard
   def initialize(board:)
     @board = board
-    @new_board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
   end
 
-  def execute(*)
-    @board.nil? ? @new_board : print_status
+  def execute
+    return :X_wins if win?(:X)
+    return :O_wins if win?(:O)
+    return nil if count_dashes != 9
+    :draw
   end
 
   private
@@ -72,11 +74,8 @@ class CheckBoard
     { status: :draw }
   end
 
-  def print_status
-    return return_X_wins_status if win?(:X)
-    return return_O_wins_status if win?(:O)
-    return @board if count_dashes != 9
-    return_draw_status
+  def return_no_status
+    { status: nil }
   end
 
   def count_dashes
