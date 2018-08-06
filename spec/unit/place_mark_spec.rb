@@ -8,7 +8,6 @@ describe PlaceMark do
 
   def play_turns(*args)
     board = update_board(spy)
-    #    turns = ARGV
     args.each do |turn|
       board.execute(player: turn[0], x: turn[1], y: turn[2])
     end
@@ -124,5 +123,13 @@ describe PlaceMark do
                              ['-', :O, :O],
                              %i[O X X]
                            ])
+  end
+
+  it 'can call to update file when mark placed' do
+    player_gateway = spy
+    board = PlaceMark.new(player_gateway: player_gateway)
+    board.execute(player: :X, x: 0, y: 0)
+
+    expect(player_gateway).to have_received(:save_board).with([[:X, '-', '-'], ['-', '-', '-'], ['-', '-', '-']])
   end
 end
