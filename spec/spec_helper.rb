@@ -2,7 +2,7 @@
 
 require 'view_board'
 require 'place_mark'
-require 'check_board'
+require 'check_game_condition'
 require 'file_board_gateway'
 require 'AI'
 

@@ -6,7 +6,9 @@ describe 'a game of Tic Tac Toe' do
   let(:file_board_gateway) { FileBoardGateway.new }
   let(:view_board) { ViewBoard.new(file_board_gateway: file_board_gateway) }
   let(:place_mark) { PlaceMark.new(file_board_gateway: file_board_gateway) }
-  let(:check_board) { CheckBoard.new(file_board_gateway: file_board_gateway) }
+  let(:check_game_condition) do
+    CheckGameCondition.new(file_board_gateway: file_board_gateway)
+  end
 
   def expect_view_board_to_be(expected)
     response = view_board.execute
@@ -15,7 +17,7 @@ describe 'a game of Tic Tac Toe' do
   end
 
   def expect_game_condition_to_eq(expected)
-    expect(check_board.execute).to eq(expected)
+    expect(check_game_condition.execute).to eq(expected)
   end
 
   def place_marks(*args)

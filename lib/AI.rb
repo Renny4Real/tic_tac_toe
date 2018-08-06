@@ -75,7 +75,7 @@ class AI
     board = board.each_slice(3).to_a
     file_board_gateway = FileBoardGateway.new
     file_board_gateway.save_board(board)
-    check_board = CheckBoard.new(file_board_gateway: file_board_gateway)
+    check_board = CheckGameCondition.new(file_board_gateway: file_board_gateway)
     return 10 if check_board.execute == :O_wins
     return 0 if check_board.execute == :draw
     return -10 if check_board.execute == :X_wins

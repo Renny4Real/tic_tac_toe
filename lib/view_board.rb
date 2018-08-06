@@ -10,7 +10,7 @@ class ViewBoard
     if @file_board_gateway.game_start
       { board: NEW_BOARD, status: nil }
     else
-      status = CheckBoard.new(file_board_gateway: current_game).execute
+      status = CheckGameCondition.new(file_board_gateway: current_game).execute
       { board: current_game.retrieve_board, status: status }
     end
   end

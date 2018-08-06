@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-describe CheckBoard do
+describe CheckGameCondition do
   def expect_check_board_to_respond_with(expected, board)
-    check_board = CheckBoard.new(file_board_gateway: spy(retrieve_board: board))
+    check_board = CheckGameCondition.new(file_board_gateway: spy(retrieve_board: board))
     response = check_board.execute
     expect(response).to eq(expected)
   end
