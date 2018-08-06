@@ -74,9 +74,9 @@ class AI
   def assign_score(board)
     board = board.each_slice(3).to_a
     check_board = CheckBoard.new(board: board)
-    return 10 if check_board.execute == { status: :O_wins }
-    return 0 if check_board.execute == { status: :draw }
-    return -10 if check_board.execute == { status: :X_wins }
+    return 10 if check_board.execute == :O_wins
+    return 0 if check_board.execute == :draw
+    return -10 if check_board.execute == :X_wins
     :go_on
   end
 
