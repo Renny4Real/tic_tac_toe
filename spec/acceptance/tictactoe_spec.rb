@@ -6,19 +6,16 @@ describe 'a game of Tic Tac Toe' do
   let(:file_board_gateway) { FileBoardGateway.new }
   let(:view_board) { ViewBoard.new(file_board_gateway: file_board_gateway) }
   let(:place_mark) { PlaceMark.new(file_board_gateway: file_board_gateway) }
-  let(:check_board) do
-    board = file_board_gateway.retrieve_board
-    CheckBoard.new(board: board)
-  end
+  let(:check_board) { CheckBoard.new(file_board_gateway: file_board_gateway) }
 
-  def expect_view_board_block(expected)
+  def expect_view_board_to_be(expected)
     response = view_board.execute
     board = response[:board]
-    expect(board). to eq(expected)
+    expect(board).to eq(expected)
   end
 
-  def expect_check_board_block(expected)
-    expect(check_board.execute). to eq(expected)
+  def expect_game_condition_to_eq(expected)
+    expect(check_board.execute).to eq(expected)
   end
 
   def place_marks(*args)
@@ -30,7 +27,7 @@ describe 'a game of Tic Tac Toe' do
   context 'Display Board' do
     it 'can display 3x3 empty board' do
 
-      expect_view_board_block([
+      expect_view_board_to_be([
                                ['-', '-', '-'],
                                ['-', '-', '-'],
                                ['-', '-', '-']
@@ -40,7 +37,7 @@ describe 'a game of Tic Tac Toe' do
     it 'can display board after one play' do
       place_marks([:X, 1, 1])
 
-      expect_view_board_block([
+      expect_view_board_to_be([
                                 ['-', '-', '-'],
                                 ['-', :X, '-'],
                                 ['-', '-', '-']
@@ -50,7 +47,7 @@ describe 'a game of Tic Tac Toe' do
     it 'can display board after two turns' do
       place_marks([:O, 0, 0], [:X, 1, 1])
 
-      expect_view_board_block([
+      expect_view_board_to_be([
                                 [:O, '-', '-'],
                                 ['-', :X, '-'],
                                 ['-', '-', '-']
@@ -60,7 +57,7 @@ describe 'a game of Tic Tac Toe' do
     it 'will place only one mark in one x,y coordinates' do
       place_marks([:O, 0, 0], [:X, 0, 0])
 
-      expect_view_board_block([
+      expect_view_board_to_be([
                                 [:O, '-', '-'],
                                 ['-', '-', '-'],
                                 ['-', '-', '-']
@@ -70,7 +67,7 @@ describe 'a game of Tic Tac Toe' do
     it 'can place another mark after an invalid move' do
       place_marks([:O, 1, 1], [:X, 1, 1], [:X, 0, 0])
 
-      expect_view_board_block([
+      expect_view_board_to_be([
                                 [:X, '-', '-'],
                                 ['-', :O, '-'],
                                 ['-', '-', '-']
@@ -82,20 +79,20 @@ describe 'a game of Tic Tac Toe' do
     it 'could determine X as the winner' do
       place_marks([:X, 1, 1], [:O, 0, 2], [:X, 0, 0], [:O, 1, 2], [:X, 2, 2])
 
-      expect_check_board_block(:X_wins)
+      expect_game_condition_to_eq(:X_wins)
     end
 
     context 'diagonal' do
       it 'determines the winner when theres a O match diagonal forward' do
         place_marks([:O, 1, 1], [:X, 0, 2], [:O, 0, 0], [:X, 1, 2], [:O, 2, 2])
 
-        expect_check_board_block(:O_wins)
+        expect_game_condition_to_eq(:O_wins)
       end
 
       it 'determines the winner when theres a O match diagonal backward' do
         place_marks([:O, 0, 2], [:X, 0, 1], [:O, 1, 1], [:X, 1, 2], [:O, 2, 0])
 
-        expect_check_board_block(:O_wins)
+        expect_game_condition_to_eq(:O_wins)
       end
     end
 
@@ -103,19 +100,19 @@ describe 'a game of Tic Tac Toe' do
       it 'determines the winner when theres a O match vertical left' do
         place_marks([:O, 0, 0], [:X, 0, 1], [:O, 1, 0], [:X, 1, 2], [:O, 2, 0])
 
-        expect_check_board_block(:O_wins)
+        expect_game_condition_to_eq(:O_wins)
       end
 
       it 'determines the winner when theres a O match vertical middle' do
         place_marks([:O, 0, 1], [:X, 0, 0], [:O, 1, 1], [:X, 1, 2], [:O, 2, 1])
 
-        expect_check_board_block(:O_wins)
+        expect_game_condition_to_eq(:O_wins)
       end
 
       it 'determines the winner when theres a O match vertical right' do
         place_marks([:O, 0, 2], [:X, 0, 1], [:O, 1, 2], [:X, 1, 0], [:O, 2, 2])
 
-        expect_check_board_block(:O_wins)
+        expect_game_condition_to_eq(:O_wins)
       end
     end
 
@@ -123,19 +120,19 @@ describe 'a game of Tic Tac Toe' do
       it 'determines the winner when theres a O match horizontal top' do
         place_marks([:O, 0, 0], [:X, 1, 1], [:O, 0, 1], [:X, 1, 0], [:O, 0, 2])
 
-        expect_check_board_block(:O_wins)
+        expect_game_condition_to_eq(:O_wins)
       end
 
       it 'determines the winner when theres a O match horizontal middle' do
         place_marks([:O, 1, 0], [:X, 0, 1], [:O, 1, 1], [:X, 2, 0], [:O, 1, 2])
 
-        expect_check_board_block(:O_wins)
+        expect_game_condition_to_eq(:O_wins)
       end
 
       it 'determines the winner when theres a O match horizontal bottom' do
         place_marks([:O, 2, 0], [:X, 1, 1], [:O, 2, 1], [:X, 1, 0], [:O, 2, 2])
 
-        expect_check_board_block(:O_wins)
+        expect_game_condition_to_eq(:O_wins)
       end
     end
   end
@@ -145,14 +142,14 @@ describe 'a game of Tic Tac Toe' do
       place_marks([:O, 0, 0], [:X, 0, 1], [:O, 0, 2], [:X, 1, 0], [:O, 2, 0], [:X, 1, 1],
                   [:O, 1, 2], [:X, 2, 2], [:O, 2, 1])
 
-      expect_check_board_block(:draw)
+      expect_game_condition_to_eq(:draw)
     end
 
     it 'only return game over if all 9 squares are full and neither player has won' do
       place_marks([:O, 0, 0], [:X, 0, 1], [:O, 0, 2], [:X, 1, 0],
                   [:O, 1, 2], [:X, 2, 2], [:O, 2, 1])
 
-      expect_check_board_block(nil)
+      expect_game_condition_to_eq(nil)
     end
   end
 
@@ -160,7 +157,7 @@ describe 'a game of Tic Tac Toe' do
     it 'will not declare a win if there isnt one' do
       place_marks([:O, 0, 0], [:X, 0, 1], [:O, 0, 2], [:X, 1, 0], [:O, 2, 0], [:X, 1, 1])
 
-      expect_check_board_block(nil)
+      expect_game_condition_to_eq(nil)
     end
 
     it 'returns a board and no status when game is not over' do
@@ -181,7 +178,7 @@ describe 'a game of Tic Tac Toe' do
 
       place_mark.execute(player: :O)
 
-      expect_view_board_block([
+      expect_view_board_to_be([
                                 [:X, '-', :O],
                                 [:O, :O, '-'],
                                 %i[O X X]
@@ -192,7 +189,7 @@ describe 'a game of Tic Tac Toe' do
       place_marks([:X, 0, 0])
 
       place_mark.execute(player: :O)
-      expect_view_board_block([
+      expect_view_board_to_be([
                                 [:X, '-', '-'],
                                 ['-', :O, '-'],
                                 ['-', '-', '-']

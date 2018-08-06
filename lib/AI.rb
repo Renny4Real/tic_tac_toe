@@ -73,7 +73,9 @@ class AI
 
   def assign_score(board)
     board = board.each_slice(3).to_a
-    check_board = CheckBoard.new(board: board)
+    file_board_gateway = FileBoardGateway.new
+    file_board_gateway.save_board(board)
+    check_board = CheckBoard.new(file_board_gateway: file_board_gateway)
     return 10 if check_board.execute == :O_wins
     return 0 if check_board.execute == :draw
     return -10 if check_board.execute == :X_wins

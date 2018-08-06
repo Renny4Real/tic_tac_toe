@@ -6,12 +6,12 @@ class ViewBoard
   end
 
   def execute
-    current_game = @file_board_gateway.retrieve_board
+    current_game = @file_board_gateway
     if @file_board_gateway.game_start
       { board: NEW_BOARD, status: nil }
     else
-      status = CheckBoard.new(board: current_game).execute
-      { board: current_game, status: status }
+      status = CheckBoard.new(file_board_gateway: current_game).execute
+      { board: current_game.retrieve_board, status: status }
     end
   end
 

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class CheckBoard
-  def initialize(board:)
-    @board = board
+  def initialize(file_board_gateway:)
+    @board = file_board_gateway.retrieve_board
   end
 
   def execute
