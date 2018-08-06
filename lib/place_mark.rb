@@ -18,17 +18,18 @@ class PlaceMark
 
     return { board: @board } if %i[O X].include?(@board[x][y])
     @board[x][y] = player
+    @player_gateway.game_start = false
     update_saved_board
   end
 
+  private
+  
   def best_play
     AI.new(board: @board).execute
   end
 
-  private
-
   def update_saved_board
-    @player_gateway.get_board = @board
+    @player_gateway.save_board(@board)
     { board: @board }
   end
 
