@@ -3,11 +3,11 @@
 require 'json'
 
 describe 'a game of Tic Tac Toe' do
-  let(:player_gateway) { InMemoryPlayerGateway.new }
-  let(:view_board) { ViewBoard.new(player_gateway: player_gateway) }
-  let(:place_mark) { PlaceMark.new(player_gateway: player_gateway) }
+  let(:file_board_gateway) { FileBoardGateway.new }
+  let(:view_board) { ViewBoard.new(file_board_gateway: file_board_gateway) }
+  let(:place_mark) { PlaceMark.new(file_board_gateway: file_board_gateway) }
   let(:check_board) do
-    board = player_gateway.retrieve_board
+    board = file_board_gateway.retrieve_board
     CheckBoard.new(board: board)
   end
 
@@ -204,7 +204,7 @@ describe 'a game of Tic Tac Toe' do
     it 'can update a game' do
       place_marks([:X, 1, 1])
 
-      data = player_gateway.retrieve_board
+      data = file_board_gateway.retrieve_board
 
       expect(data).to eq([['-', '-', '-'], ['-', :X, '-'], ['-', '-', '-']])
     end
@@ -212,7 +212,7 @@ describe 'a game of Tic Tac Toe' do
     it 'can continue updating throughout a game' do
       place_marks([:X, 1, 1], [:O, 0, 1], [:X, 2, 1], [:O, 2, 2])
 
-      data = player_gateway.retrieve_board
+      data = file_board_gateway.retrieve_board
 
       expect(data).to eq([['-', :O, '-'], ['-', :X, '-'], ['-', :X, :O]])
     end

@@ -2,7 +2,7 @@
 
 describe ViewBoard do
   def view_marks_on_board(board, expected, new_game)
-    view_board = ViewBoard.new(player_gateway: spy(retrieve_board: board, game_start: new_game))
+    view_board = ViewBoard.new(file_board_gateway: spy(retrieve_board: board, game_start: new_game))
     response = view_board.execute
     expect(response[:board]).to eq(expected)
   end
@@ -40,7 +40,7 @@ describe ViewBoard do
   end
 
   it 'can return a incomplete games status and board' do
-    view_board = ViewBoard.new(player_gateway: double(retrieve_board: [[:X, '-', '-'],
+    view_board = ViewBoard.new(file_board_gateway: double(retrieve_board: [[:X, '-', '-'],
                                                                        ['-', :X, '-'],
                                                                        [:O, '-', :O]], game_start: false))
     response = view_board.execute
@@ -50,7 +50,7 @@ describe ViewBoard do
   end
 
   it 'can return a win status at the end of a game' do
-    view_board = ViewBoard.new(player_gateway: double(retrieve_board: [[:X, '-', '-'],
+    view_board = ViewBoard.new(file_board_gateway: double(retrieve_board: [[:X, '-', '-'],
                                                                        ['-', :X, '-'],
                                                                        %i[O O O]], game_start: false))
     response = view_board.execute
@@ -60,7 +60,7 @@ describe ViewBoard do
   end
 
   it 'can return a draw status at the end of a game' do
-    view_board = ViewBoard.new(player_gateway: spy(retrieve_board: [%i[X O O],
+    view_board = ViewBoard.new(file_board_gateway: spy(retrieve_board: [%i[X O O],
                                                                     %i[O X X],
                                                                     %i[O X O]], game_start: false))
     response = view_board.execute

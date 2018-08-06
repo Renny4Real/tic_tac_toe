@@ -2,8 +2,8 @@
 
 describe PlaceMark do
   def update_board(spy_input)
-    player_gateway = spy_input
-    PlaceMark.new(player_gateway: player_gateway)
+    file_board_gateway = spy_input
+    PlaceMark.new(file_board_gateway: file_board_gateway)
   end
 
   def play_turns(*args)
@@ -126,10 +126,10 @@ describe PlaceMark do
   end
 
   it 'can call to update file when mark placed' do
-    player_gateway = spy
-    board = PlaceMark.new(player_gateway: player_gateway)
+    file_board_gateway = spy
+    board = PlaceMark.new(file_board_gateway: file_board_gateway)
     board.execute(player: :X, x: 0, y: 0)
 
-    expect(player_gateway).to have_received(:save_board).with([[:X, '-', '-'], ['-', '-', '-'], ['-', '-', '-']])
+    expect(file_board_gateway).to have_received(:save_board).with([[:X, '-', '-'], ['-', '-', '-'], ['-', '-', '-']])
   end
 end

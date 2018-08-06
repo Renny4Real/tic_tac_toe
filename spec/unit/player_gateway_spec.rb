@@ -2,9 +2,9 @@
 
 require 'json'
 
-describe InMemoryPlayerGateway do
+describe FileBoardGateway do
   it 'will save an updated board' do
-    player_gateway = InMemoryPlayerGateway.new
+    player_gateway = FileBoardGateway.new
     player_gateway.save_board([
                                 [:X, '-', '-'],
                                 ['-', :O, '-'],
@@ -22,7 +22,7 @@ describe InMemoryPlayerGateway do
   end
 
   it 'will retrieve an updated board' do
-    player_gateway = InMemoryPlayerGateway.new
+    player_gateway = FileBoardGateway.new
     player_gateway.save_board([
                                 [:X, '-', '-'],
                                 ['-', :O, '-'],
@@ -37,7 +37,7 @@ describe InMemoryPlayerGateway do
                         ])
   end
   it 'will save an updated a board twice' do
-    player_gateway = InMemoryPlayerGateway.new
+    player_gateway = FileBoardGateway.new
     player_gateway.save_board([
                                 [:X, '-', '-'],
                                 ['-', :O, '-'],

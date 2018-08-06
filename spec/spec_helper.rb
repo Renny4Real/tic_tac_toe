@@ -3,7 +3,7 @@
 require 'view_board'
 require 'place_mark'
 require 'check_board'
-require 'player_gateway'
+require 'file_board_gateway'
 require 'AI'
 
 RSpec.configure do |config|
