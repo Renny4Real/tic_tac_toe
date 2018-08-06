@@ -5,8 +5,12 @@ require 'place_mark'
 require 'check_board'
 require 'player_gateway'
 require 'AI'
+require 'rack/test'
+
+ENV['RACK_ENV'] = 'test'
 
 RSpec.configure do |config|
+  config.include Rack::Test::Methods
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end

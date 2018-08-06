@@ -217,4 +217,8 @@ describe 'a game of Tic Tac Toe' do
       expect(data).to eq([['-', :O, '-'], ['-', :X, '-'], ['-', :X, :O]])
     end
   end
+
+  context 'implementing UI' do
+  
+  end
 end
