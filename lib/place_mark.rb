@@ -18,7 +18,6 @@ class PlaceMark
 
     return { board: @board } if %i[O X].include?(@board[x][y])
     @board[x][y] = player
-    @file_board_gateway.game_start = false
     update_saved_board
   end
 

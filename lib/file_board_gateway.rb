@@ -3,14 +3,10 @@
 require 'json'
 
 class FileBoardGateway
-  attr_accessor :game_start
-
-  def initialize
-    @game_start = true
-  end
 
   def retrieve_board
     file = File.read('gamestate.json')
+    return nil if file == ''
     data = JSON.parse(file, symbolize_names: true)
     return data if data.nil?
     build_board(data.fetch(:board))
@@ -30,4 +26,9 @@ class FileBoardGateway
       end
     end
   end
+
+  def wipe_board
+    File.write('gamestate.json', '')
+  end
+
 end

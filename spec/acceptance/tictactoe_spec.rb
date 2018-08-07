@@ -10,6 +10,10 @@ describe 'a game of Tic Tac Toe' do
     CheckGameCondition.new(file_board_gateway: file_board_gateway)
   end
 
+  before do
+    file_board_gateway.wipe_board
+  end
+
   def expect_view_board_to_be(expected)
     response = view_board.execute
     board = response[:board]
