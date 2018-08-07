@@ -1,17 +1,20 @@
 # frozen_string_literal: true
 
 class ViewBoard
-  def initialize(player_gateway:)
-    @player_gateway = player_gateway
-    @board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
+  def initialize(file_board_gateway:)
+    @file_board_gateway = file_board_gateway
   end
 
   def execute
-    if @player_gateway.get_board.nil?
-      { board: @board }
+    current_game = @file_board_gateway
+    if @file_board_gateway.retrieve_board.nil?
+      { board: NEW_BOARD, status: nil }
     else
-      { board: @player_gateway.get_board }
+      status = CheckGameCondition.new(file_board_gateway: current_game).execute
+      { board: current_game.retrieve_board, status: status }
     end
   end
-  #
+
+  NEW_BOARD = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']].freeze
+  
 end

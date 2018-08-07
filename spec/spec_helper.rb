@@ -2,9 +2,8 @@
 
 require 'view_board'
 require 'place_mark'
-require 'player'
-require 'check_board'
-require 'player_gateway'
+require 'check_game_condition'
+require 'file_board_gateway'
 require 'AI'
 
 RSpec.configure do |config|
@@ -17,6 +16,9 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  config.filter_run_when_matching :focus
+  config.run_all_when_everything_filtered
 
   #
   #

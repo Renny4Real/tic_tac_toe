@@ -1,13 +1,6 @@
 # frozen_string_literal: true
 
 describe AI do
-  it 'picks the best move' do
-    board = [[:X, '-', :O], [:O, '-', '-'], %i[O X X]]
-
-    response = AI.new(board: board).execute
-
-    expect(response).to eq(4)
-  end
 
   it 'can pick the only option left on the board' do
     board = [%i[O X O], %i[O X X], [:X, '-', :O]]
@@ -33,7 +26,7 @@ describe AI do
     expect(response).to eq(8)
   end
 
-  it 'can pick a winning solution from two options' do
+  it 'can pick a different winning solution from two options' do
     board = [[:O, '-', :O], %i[O X X], [:X, '-', :X]]
 
     response = AI.new(board: board).execute
@@ -43,6 +36,14 @@ describe AI do
 
   it 'can pick draw over a loss from two options' do
     board = [%i[X O X], ['-', '-', :O], %i[O X X]]
+
+    response = AI.new(board: board).execute
+
+    expect(response).to eq(4)
+  end
+
+  it 'can pick the best move from 3 options' do
+    board = [[:X, '-', :O], [:O, '-', '-'], %i[O X X]]
 
     response = AI.new(board: board).execute
 

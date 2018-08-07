@@ -4,8 +4,8 @@
 require 'AI'
 
 class PlaceMark
-  def initialize(player_gateway:)
-    @player_gateway = player_gateway
+  def initialize(file_board_gateway:)
+    @file_board_gateway = file_board_gateway
     @board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
   end
 
@@ -21,14 +21,14 @@ class PlaceMark
     update_saved_board
   end
 
+  private
+  
   def best_play
     AI.new(board: @board).execute
   end
 
-  private
-
   def update_saved_board
-    @player_gateway.get_board = @board
+    @file_board_gateway.save_board(@board)
     { board: @board }
   end
 
