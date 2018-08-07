@@ -4,8 +4,8 @@ require 'json'
 
 describe FileBoardGateway do
   it 'will save an updated board' do
-    player_gateway = FileBoardGateway.new
-    player_gateway.save_board([
+    file_board_gateway = FileBoardGateway.new
+    file_board_gateway.save_board([
                                 [:X, '-', '-'],
                                 ['-', :O, '-'],
                                 ['-', '-', '-']
@@ -22,13 +22,13 @@ describe FileBoardGateway do
   end
 
   it 'will retrieve an updated board' do
-    player_gateway = FileBoardGateway.new
-    player_gateway.save_board([
+    file_board_gateway = FileBoardGateway.new
+    file_board_gateway.save_board([
                                 [:X, '-', '-'],
                                 ['-', :O, '-'],
                                 ['-', '-', '-']
                               ])
-    board = player_gateway.retrieve_board
+    board = file_board_gateway.retrieve_board
 
     expect(board).to eq([
                           [:X, '-', '-'],
@@ -37,13 +37,13 @@ describe FileBoardGateway do
                         ])
   end
   it 'will save an updated a board twice' do
-    player_gateway = FileBoardGateway.new
-    player_gateway.save_board([
+    file_board_gateway = FileBoardGateway.new
+    file_board_gateway.save_board([
                                 [:X, '-', '-'],
                                 ['-', :O, '-'],
                                 ['-', '-', '-']
                               ])
-    player_gateway.save_board([
+    file_board_gateway.save_board([
                                 [:X, '-', :X],
                                 ['-', :O, '-'],
                                 ['-', '-', '-']
@@ -57,5 +57,14 @@ describe FileBoardGateway do
                            ['-', 'O', '-'],
                            ['-', '-', '-']
                          ])
+  end
+
+  it 'can a delete a stored board' do
+    file_board_gateway = FileBoardGateway.new
+    file_board_gateway.wipe_board
+
+    file = File.read('gamestate.json')
+
+    expect(file).to eq('')
   end
 end
