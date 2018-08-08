@@ -8,11 +8,7 @@
   </head>
   <body>
     <h1 id='title'><%= @title %></h1>
-    <div id='game_table'>
-      <table>
         <%= yield %>
-      </table>
-    </div>
     <div id='game_status'>
       <% if @status == :O_wins %>
         <p  class='end_of_game_message'>O Wins!</p> 

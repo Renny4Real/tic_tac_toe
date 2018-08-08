@@ -1,4 +1,4 @@
-#title {
+h1 {
   margin: 5px auto;
   margin-top: 40px;
   text-align: center;
@@ -71,13 +71,44 @@ border-right: none;
   display: block;
   margin: auto;
   margin-top: 53px;
-  border-radius: 5px;
   height: 37px;
   width: 64px;
   border-width: 3px;
   outline: transparent;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 3px 4px 9px #999999;
+}
+#reset_button:hover {
+  box-shadow: -2px -2px 2px #999999;
+  top: 3px;
 }
 .form_link {
   height: 100%;
   width: 100%;
+}
+input.selection_button {
+  width: 49%;
+  height: 102px;
+  font-size: 29px;
+  position: relative;
+  color: #111111;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 3px 4px 9px #999999;
+}
+#player_selection {
+  width: 53%;
+  margin: auto;
+  margin-top: 17%;
+}
+#starting_question {
+  font-size: 30px;
+  margin-bottom: 13%;
+}
+input.selection_button:hover {
+  box-shadow: 0 3px 0 #999999;
+  top: 3px;
 }

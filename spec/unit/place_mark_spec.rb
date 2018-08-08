@@ -132,4 +132,12 @@ describe PlaceMark do
 
     expect(file_board_gateway).to have_received(:save_board).with([[:X, '-', '-'], ['-', '-', '-'], ['-', '-', '-']])
   end
+
+  it 'will place a mark in the middle cell if the computer plays on an empty board' do
+    file_board_gateway = spy(retrieve_board: [["-", "-", "-"], ['-', "-", "-"], ["-", "-", "-"]])
+    board = PlaceMark.new(file_board_gateway: file_board_gateway)
+    response = board.execute(player: :O)
+
+    expect(response).to eq(board: [["-", "-", "-"], ['-', :O, "-"], ["-", "-", "-"]])
+  end
 end

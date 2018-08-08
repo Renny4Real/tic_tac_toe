@@ -6,6 +6,7 @@ class AI
   end
 
   def execute
+    return 4 if @board.uniq.length == 1
     scores = score_next_moves
     scores.key(scores.values.max)
   end

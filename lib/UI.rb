@@ -7,8 +7,12 @@ require 'place_mark'
 require 'view_board'
 require 'check_game_condition'
 
-
   get '/' do
+    reset_board
+    erb :setup
+  end
+
+  get '/play' do
     @board = game_grid
     @status = game_status
     @title = 'Tic-Tac-Toe'
@@ -23,13 +27,30 @@ require 'check_game_condition'
     @place_mark.execute(player: :X, x: @row, y: @cell)
     @status = game_status
     @place_mark.execute(player: :O) if @status == nil
-    redirect '/'
+    redirect '/play'
   end
 
   post '/reset' do
+    reset_board
+    redirect '/play'
+  end
+
+  post '/computerplays' do
+    @file_board_gateway = FileBoardGateway.new
+    @place_mark = PlaceMark.new(file_board_gateway: @file_board_gateway)
+    @status = game_status
+    @place_mark.execute(player: :O) if @status == nil
+    redirect '/play'
+  end
+
+  post '/humanplays' do
+    redirect '/play'
+  end
+
+
+  def reset_board
     @file_board_gateway = FileBoardGateway.new
     @file_board_gateway.wipe_board
-    redirect '/'
   end
 
   def game_grid

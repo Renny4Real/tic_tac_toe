@@ -7,9 +7,71 @@ describe 'Views' do
   def app
     Sinatra::Application
   end
-  
-  context 'First page / ' do
+  context 'Initial setup /' do
     let(:response) { get '/' }
+    
+    it 'returns status 200 OK' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'has a button which links to /computerplays' do
+      expect(response.body).to have_tag 'form', :with => { :action => "/computerplays", :method => 'post' }
+    end
+
+    it 'has a button which links to /humanplays' do
+      expect(response.body).to have_tag 'form', :with => { :action => "/humanplays", :method => 'post' }
+    end
+
+    it 'clears the grid ' do
+      board = [['X', '-', 'O'], ['-', 'O', 'X'], ['X', 'X', '-']]
+
+      File.open('gamestate.json', 'w') do |file|
+        file.write({ board: board }.to_json)
+      end
+
+      post_page = get '/'
+
+      file = File.read('gamestate.json')
+
+      expect(file).to eq('')
+    end
+  end
+
+  context 'computer plays' do
+    let(:response) { post '/computerplays' }
+
+    it 'returns status 302 OK' do
+      expect(response.status).to eq(302)
+    end
+
+    it 'gets computer to play a mark' do
+
+      board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
+
+      File.open('gamestate.json', 'w') do |file|
+        file.write({ board: board }.to_json)
+      end
+
+      post_page = post '/computerplays'
+
+      file = File.read('gamestate.json')
+      data = JSON.parse(file, symbolize_names: true)
+
+      expect(data).to eq({board:[["-","-","-"],["-","O","-"],["-","-","-"]]})
+    end
+
+  end
+
+  context 'human plays' do
+    let(:response) { post '/humanplays' }
+
+    it 'returns status 302 OK' do
+      expect(response.status).to eq(302)
+    end
+  end
+
+  context 'page /play' do
+    let(:response) { get '/play' }
 
     it 'returns status 200 OK' do
       expect(response.status).to eq(200)
@@ -40,7 +102,7 @@ describe 'Views' do
     end
   end
 
-  context 'Cell clicked  /1/1 ' do
+  xcontext 'Cell clicked  /1/1 ' do
 
     let(:response) { post '/1/1', :cell => '1', :row => '1' }
 
