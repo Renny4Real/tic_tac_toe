@@ -1,0 +1,27 @@
+<% @board.each_index do |row| %>
+  <tr>
+    <% @board[row].each_index do |index| %>
+      <% if @board[row][index] == '-' %>
+        <% if @status.nil? %>
+          <td id='Cell_<%= row %><%= index %>' class='cell' >
+            <div class='empty_cell' >
+              <form action="/<%= row %>/<%= index %>", class='form_link', method='post'>
+                <input type='submit', class='place_mark_link', style='width: 100%;'>
+                  &nbsp;
+                </input>
+              </form>
+            </div>
+          </td>
+        <% else %>
+          <td id='Cell_<%= row %><%= index %>' class='cell' >
+            <div class='empty_cell' >
+              &nbsp;
+            </div>
+          </td>
+        <% end %>
+      <% else %>
+        <td id='Cell_<%= row %><%= index %>' class='cell' ><%= @board[row][index] %></td>
+      <% end %>
+    <% end %>
+  </tr>
+<% end %>
