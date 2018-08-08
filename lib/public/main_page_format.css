@@ -1,0 +1,83 @@
+#title {
+  margin: 5px auto;
+  margin-top: 40px;
+  text-align: center;
+  font-size: 80px;
+  font-family: "Courier New",Courier,monospace;
+}
+#game_table {
+  margin: 80px auto 0 auto;
+  width: 500px;
+  height: 511px
+}
+td {
+  border: 5px solid black;
+}
+#Cell_00 {
+  border-top: none;
+  border-left: none;
+}
+#Cell_01 {
+  border-top: none;
+}
+#Cell_02 {
+  border-top: none;
+  border-right: none;
+}
+#Cell_10 {
+  border-left: none;
+}
+#Cell_12 {
+border-right: none;
+}
+#Cell_20 {
+  border-bottom: none;
+  border-left: none;
+}
+#Cell_21 {
+  border-bottom: none;
+}
+#Cell_22 {
+  border-bottom: none;
+  border-right: none;
+}
+.cell {
+  width: 165px;
+  height: 165px;
+  text-align: center;
+  font-size: 100px;
+  color: #4e4c4c87;
+}
+.empty_cell {
+  width: 150px;
+  height: 150px;
+  margin: auto;
+}
+.place_mark_link {
+  height: 100%;
+  display: block;
+  color: transparent;
+  background: transparent;
+  border: transparent;
+  outline: transparent;
+}
+.end_of_game_message {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 96px;
+  color: #b30707;
+}
+#reset_button {
+  display: block;
+  margin: auto;
+  margin-top: 53px;
+  border-radius: 5px;
+  height: 37px;
+  width: 64px;
+  border-width: 3px;
+  outline: transparent;
+}
+.form_link {
+  height: 100%;
+  width: 100%;
+}
