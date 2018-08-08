@@ -2,11 +2,13 @@
 
 require 'spec_helper'
 require 'json'
+require 'uri'
 
 describe 'Views' do  
   def app
     Sinatra::Application
   end
+
   context 'Initial setup /' do
     let(:response) { get '/' }
     

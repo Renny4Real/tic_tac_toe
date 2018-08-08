@@ -1,3 +1,9 @@
+
+p {
+  text-align: center;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
 h1 {
   margin: 5px auto;
   margin-top: 40px;
@@ -115,4 +121,8 @@ input.selection_button {
 input.selection_button:hover {
   box-shadow: 0 3px 0 #999999;
   top: 3px;
+}
+
+#footer {
+  margin-top: 11%;
 }
