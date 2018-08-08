@@ -1,9 +1,106 @@
 #frozen_string_literal: true
 
 require 'spec_helper'
+require 'json'
 
-describe 'Views' do
+describe 'Views' do  
   def app
     Sinatra::Application
   end
+  
+  context 'First page / ' do
+    let(:response) { get '/' }
+
+    it 'returns status 200 OK' do
+      expect(response.status).to eq(200)
+    end
+
+    it 'contains a table' do
+      expect(response.body).to have_tag(:table)
+    end
+
+    it ' contains a 3 by 3 game grid' do
+
+      board = [[:X, '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
+
+      File.open('gamestate.json', 'w') do |file|
+        file.write({ board: board }.to_json)
+      end
+
+      expect(response.body).to have_tag(:table, :text => 'X')
+    end
+
+    it 'has a middle cell which link to /1/1' do
+
+      expect(response.body).to have_tag 'form', :with => { :action => "/1/1", :method => 'post' }
+    end
+
+    it 'has to a reset button linking to /reset' do
+      expect(response.body).to have_tag 'form', :with => { :action => "/reset", :method => 'post' }
+    end
+  end
+
+  context 'Cell clicked  /1/1 ' do
+
+    let(:response) { post '/1/1', :cell => '1', :row => '1' }
+
+    it 'returns status 302 OK' do
+      expect(response.status).to eq(302)
+    end
+
+    it 'calls place mark' do
+
+      board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
+
+      File.open('gamestate.json', 'w') do |file|
+        file.write({ board: board }.to_json)
+      end
+
+      post_page = post '/1/1'
+
+      file = File.read('gamestate.json')
+      data = JSON.parse(file, symbolize_names: true)
+      board = data[:board].flatten
+      expect(true).to eq(board.include?('X')) 
+    end
+
+    it 'gets computer to play a mark before human places another' do
+
+      board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
+
+      File.open('gamestate.json', 'w') do |file|
+        file.write({ board: board }.to_json)
+      end
+
+      post_page = post '/0/0'
+
+      file = File.read('gamestate.json')
+      data = JSON.parse(file, symbolize_names: true)
+
+      expect(data).to eq({board:[["X","-","-"],["-","O","-"],["-","-","-"]]})
+    end
+  end
+
+  context 'reset button /reset' do
+    let(:response) { post '/reset' }
+
+    it 'returns status 302 OK' do
+      expect(response.status).to eq(302)
+    end
+
+    it 'resets the grid to empty spaces after reset button is pressed' do
+      board = [['X', 'O', '-'], ['-', 'X', '-'], ['-', '-', 'O']]
+
+      File.open('gamestate.json', 'w') do |file|
+        file.write({ board: board }.to_json)
+      end
+
+      reset = post '/reset'
+
+      file = File.read('gamestate.json')
+
+      expect(file).to eq('')
+    end
+  end
+
 end
