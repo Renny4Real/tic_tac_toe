@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Tic-Tac-Toe</title>
+    <link href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css' rel='stylesheet' />
+    <link href="/main_page_format.css" rel='stylesheet' />
+  </head>
+  <body>
+    <h1 id='title'><%= @title %></h1>
+    <div id='game_table'>
+      <table>
+        <%= yield %>
+      </table>
+    </div>
+    <div id='game_status'>
+      <% if @status == :O_wins %>
+        <p  class='end_of_game_message'>O Wins!</p> 
+      <% elsif @status == :draw %>
+        <p  class='end_of_game_message'>It's a draw!</p>
+      <% end %>
+    </div>
+    <div id='reset'>
+      <form action='/reset', method='post'>
+        <input type='submit', id='reset_button', value='Reset'>
+        </input>
+      </form>
+    </div>
+  </body>
+</html>
