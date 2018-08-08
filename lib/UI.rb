@@ -35,6 +35,10 @@ require 'check_game_condition'
     redirect '/play'
   end
 
+  post '/playagain' do
+    redirect '/'
+  end
+
   post '/computerplays' do
     @file_board_gateway = FileBoardGateway.new
     @place_mark = PlaceMark.new(file_board_gateway: @file_board_gateway)

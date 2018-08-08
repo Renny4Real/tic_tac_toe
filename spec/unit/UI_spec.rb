@@ -165,4 +165,16 @@ describe 'Views' do
     end
   end
 
+  context 'play again button /playagain' do
+    let(:response) { post '/playagain' }
+
+    it 'returns status 302 OK' do
+      expect(response.status).to eq(302)
+    end
+
+    xit 'resets to index page' do
+      # check redirects 
+    end
+  end
+
 end

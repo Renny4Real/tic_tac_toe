@@ -67,7 +67,7 @@ border-right: none;
   font-size: 96px;
   color: #b30707;
 }
-#reset_button {
+#reset_button, #playagain_button {
   display: block;
   margin: auto;
   margin-top: 53px;
@@ -80,7 +80,10 @@ border-right: none;
   border-radius: 5px;
   box-shadow: 3px 4px 9px #999999;
 }
-#reset_button:hover {
+#playagain_button {
+  width: 85px;
+}
+#reset_button:hover, #playagain_button:hover {
   box-shadow: -2px -2px 2px #999999;
   top: 3px;
 }
@@ -98,6 +101,7 @@ input.selection_button {
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 3px 4px 9px #999999;
+  outline: transparent;
 }
 #player_selection {
   width: 53%;

@@ -1,31 +1,53 @@
 <div id='game_table'>
   <table>
-<% @board.each_index do |row| %>
-  <tr>
-    <% @board[row].each_index do |index| %>
-      <% if @board[row][index] == '-' %>
-        <% if @status.nil? %>
-          <td id='Cell_<%= row %><%= index %>' class='cell' >
-            <div class='empty_cell' >
-              <form action="/<%= row %>/<%= index %>", class='form_link', method='post'>
-                <input type='submit', class='place_mark_link', style='width: 100%;'>
+    <% @board.each_index do |row| %>
+      <tr>
+        <% @board[row].each_index do |index| %>
+          <% if @board[row][index] == '-' %>
+            <% if @status.nil? %>
+              <td id='Cell_<%= row %><%= index %>' class='cell' >
+                <div class='empty_cell' >
+                  <form action="/<%= row %>/<%= index %>", class='form_link', method='post'>
+                    <input type='submit', class='place_mark_link', style='width: 100%;'>
+                      &nbsp;
+                    </input>
+                  </form>
+                </div>
+              </td>
+            <% else %>
+              <td id='Cell_<%= row %><%= index %>' class='cell' >
+                <div class='empty_cell' >
                   &nbsp;
-                </input>
-              </form>
-            </div>
-          </td>
-        <% else %>
-          <td id='Cell_<%= row %><%= index %>' class='cell' >
-            <div class='empty_cell' >
-              &nbsp;
-            </div>
-          </td>
+                </div>
+              </td>
+            <% end %>
+          <% else %>
+            <td id='Cell_<%= row %><%= index %>' class='cell' ><%= @board[row][index] %></td>
+          <% end %>
         <% end %>
-      <% else %>
-        <td id='Cell_<%= row %><%= index %>' class='cell' ><%= @board[row][index] %></td>
-      <% end %>
+      </tr>
     <% end %>
-  </tr>
+  </table>
+</div>
+<div id='game_status'>
+  <% if @status == :O_wins %>
+    <p  class='end_of_game_message'>O Wins!</p> 
+  <% elsif @status == :draw %>
+    <p  class='end_of_game_message'>It's a draw!</p>
+  <% end %>
+</div>
+<% if @status.nil? %>
+  <div id='reset'>
+    <form action='/reset', method='post'>
+      <input type='submit', id='reset_button', value='Reset'>
+      </input>
+    </form>
+  </div>
+<% else %>
+  <div id='playagain'>
+    <form action='/playagain', method='post'>
+      <input type='submit', id='playagain_button', value='Play Again!'>
+      </input>
+    </form>
+  </div>
 <% end %>
-      </table>
-      </div>

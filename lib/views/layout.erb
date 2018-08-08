@@ -9,18 +9,5 @@
   <body>
     <h1 id='title'><%= @title %></h1>
         <%= yield %>
-    <div id='game_status'>
-      <% if @status == :O_wins %>
-        <p  class='end_of_game_message'>O Wins!</p> 
-      <% elsif @status == :draw %>
-        <p  class='end_of_game_message'>It's a draw!</p>
-      <% end %>
-    </div>
-    <div id='reset'>
-      <form action='/reset', method='post'>
-        <input type='submit', id='reset_button', value='Reset'>
-        </input>
-      </form>
-    </div>
   </body>
 </html>
