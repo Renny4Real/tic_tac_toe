@@ -1,0 +1,51 @@
+<div id="game-table">
+    <% board.each_index do |row| %>
+      <div class="row">
+        <% board[row].each_index do |index| %>
+          <% if board[row][index] == "-" %>
+            <% if status.nil? %>
+              <div id="Cell-<%= row %><%= index %>" class="cell" >
+                <div class="empty-cell" >
+                  <form action="/<%= row %>/<%= index %>", class="form-link", method="post">
+                    <input type="submit", class="place-mark-link", style="width: 100%;">
+                      &nbsp;
+                    </input>
+                  </form>
+                </div>
+              </div>
+            <% else %>
+              <div id="Cell-<%= row %><%= index %>" class="cell" >
+                <div class="empty-cell" >
+                  &nbsp;
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <div id="Cell-<%= row %><%= index %>" class="cell" >
+              <%= board[row][index] %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+</div>
+<div id="game-status">
+  <% if status == :O_wins %>
+    <p  class="end-of-game-message">O Wins!</p> 
+  <% elsif @status == :draw %>
+    <p  class="end-of-game-message">It's a draw!</p>
+  <% end %>
+</div>
+<% if status.nil? %>
+  <div id="reset">
+    <form action="/reset", method="post">
+    <input type="submit", id="reset-button", value="Reset"/>
+    </form>
+  </div>
+<% else %>
+  <div id="playagain">
+    <form action="/playagain", method="post">
+      <input type="submit", id="playagain-button", value="Play Again!"/>
+    </form>
+  </div>
+<% end %>

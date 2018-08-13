@@ -31,8 +31,11 @@ GEM
       ruby_dep (~> 1.2)
     lumberjack (1.0.13)
     method_source (0.9.0)
+    mini_portile2 (2.3.0)
     mustermann (1.0.2)
     nenv (0.3.0)
+    nokogiri (1.8.4)
+      mini_portile2 (~> 2.3.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
@@ -52,6 +55,8 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    rerun (0.13.0)
+      listen (~> 3.0)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
@@ -61,6 +66,9 @@ GEM
     rspec-expectations (3.7.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.7.0)
+    rspec-html-matchers (0.9.1)
+      nokogiri (~> 1)
+      rspec (>= 3.0.0.a, < 4)
     rspec-mocks (3.7.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.7.0)
@@ -92,8 +100,11 @@ DEPENDENCIES
   guard-rspec
   guard-rubocop
   json
+  nokogiri
   rack-test
+  rerun
   rspec
+  rspec-html-matchers
   sinatra
 
 BUNDLED WITH

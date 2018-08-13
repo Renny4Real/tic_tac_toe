@@ -6,7 +6,8 @@ require 'AI'
 class PlaceMark
   def initialize(file_board_gateway:)
     @file_board_gateway = file_board_gateway
-    @board = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
+    @board = @file_board_gateway.retrieve_board
+    @board = [['-','-','-'],['-','-','-'],['-','-','-']] if @board.nil?
   end
 
   def execute(player:, x: 'row', y: 'column')
@@ -18,6 +19,7 @@ class PlaceMark
 
     return { board: @board } if %i[O X].include?(@board[x][y])
     @board[x][y] = player
+    @board
     update_saved_board
   end
 

@@ -7,7 +7,7 @@ describe PlaceMark do
   end
 
   def play_turns(*args)
-    board = update_board(spy)
+    board = update_board(spy(retrieve_board: [["-", "-", "-"], ['-', "-", "-"], ["-", "-", "-"]]))
     args.each do |turn|
       board.execute(player: turn[0], x: turn[1], y: turn[2])
     end
@@ -15,7 +15,7 @@ describe PlaceMark do
   end
 
   it 'puts X after player turn ' do
-    update_board = update_board(spy)
+    update_board = update_board(spy(retrieve_board: [["-", "-", "-"], ['-', "-", "-"], ["-", "-", "-"]]))
     response = update_board.execute(player: :X, x: 1, y: 0)
     expect(response).to eq(board: [
                              ['-', '-', '-'],
@@ -25,7 +25,7 @@ describe PlaceMark do
   end
 
   it 'puts X and then O after player X turn ' do
-    update_board = update_board(spy)
+    update_board = update_board(spy(retrieve_board: [["-", "-", "-"], ['-', "-", "-"], ["-", "-", "-"]]))
     update_board.execute(player: :O, x: 0, y: 0)
     response = update_board.execute(player: :X, x: 1, y: 0)
     expect(response).to eq(board: [
@@ -36,7 +36,7 @@ describe PlaceMark do
   end
 
   it 'puts X and O multiple times ' do
-    update_board = update_board(spy)
+    update_board = update_board(spy(retrieve_board: [["-", "-", "-"], ['-', "-", "-"], ["-", "-", "-"]]))
     update_board.execute(player: :O, x: 0, y: 0)
     update_board.execute(player: :X, x: 2, y: 2)
     update_board.execute(player: :O, x: 1, y: 1)
@@ -126,10 +126,18 @@ describe PlaceMark do
   end
 
   it 'can call to update file when mark placed' do
-    file_board_gateway = spy
+    file_board_gateway = spy(retrieve_board: [["-", "-", "-"], ['-', "-", "-"], ["-", "-", "-"]])
     board = PlaceMark.new(file_board_gateway: file_board_gateway)
     board.execute(player: :X, x: 0, y: 0)
 
     expect(file_board_gateway).to have_received(:save_board).with([[:X, '-', '-'], ['-', '-', '-'], ['-', '-', '-']])
+  end
+
+  it 'will place a mark in the middle cell if the computer plays on an empty board' do
+    file_board_gateway = spy(retrieve_board: [["-", "-", "-"], ['-', "-", "-"], ["-", "-", "-"]])
+    board = PlaceMark.new(file_board_gateway: file_board_gateway)
+    response = board.execute(player: :O)
+
+    expect(response).to eq(board: [["-", "-", "-"], ['-', :O, "-"], ["-", "-", "-"]])
   end
 end

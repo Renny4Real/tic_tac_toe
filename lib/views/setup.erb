@@ -1,0 +1,16 @@
+
+<div id="player-selection">
+  <h1 id="starting-question"> Who would you like to play first?</h1>
+  <div id="button-container">
+    <div class="button">
+      <form action="/humanplays", method="post">
+        <input value="Human plays first", type="submit", class="selection-button", style="float: right;"/>
+      </form>
+    </div>
+    <div class="button">
+      <form action="/computerplays", method="post">
+        <input value="Computer plays first", type="submit", class="selection-button"/>
+      </form>
+    </div>
+  </div>
+</div>

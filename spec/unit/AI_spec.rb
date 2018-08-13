@@ -49,4 +49,12 @@ describe AI do
 
     expect(response).to eq(4)
   end
+
+  it 'return the middle square for an empty board' do
+    board = [['-','-','-'],['-','-','-'],['-','-','-']]
+
+    response = AI.new(board: board).execute
+
+    expect(response).to eq(4)
+  end
 end
