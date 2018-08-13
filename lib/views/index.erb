@@ -1,53 +1,51 @@
-<div id='game_table'>
+<div id="game-table">
   <table>
-    <% @board.each_index do |row| %>
+    <% board.each_index do |row| %>
       <tr>
-        <% @board[row].each_index do |index| %>
-          <% if @board[row][index] == '-' %>
-            <% if @status.nil? %>
-              <td id='Cell_<%= row %><%= index %>' class='cell' >
-                <div class='empty_cell' >
-                  <form action="/<%= row %>/<%= index %>", class='form_link', method='post'>
-                    <input type='submit', class='place_mark_link', style='width: 100%;'>
+        <% board[row].each_index do |index| %>
+          <% if board[row][index] == "-" %>
+            <% if status.nil? %>
+              <td id="Cell-<%= row %><%= index %>" class="cell" >
+                <div class="empty-cell" >
+                  <form action="/<%= row %>/<%= index %>", class="form-link", method="post">
+                    <input type="submit", class="place-mark-link", style="width: 100%;">
                       &nbsp;
                     </input>
                   </form>
                 </div>
               </td>
             <% else %>
-              <td id='Cell_<%= row %><%= index %>' class='cell' >
-                <div class='empty_cell' >
+              <td id="Cell-<%= row %><%= index %>" class="cell" >
+                <div class="empty-cell" >
                   &nbsp;
                 </div>
               </td>
             <% end %>
           <% else %>
-            <td id='Cell_<%= row %><%= index %>' class='cell' ><%= @board[row][index] %></td>
+            <td id="Cell-<%= row %><%= index %>" class="cell" ><%= board[row][index] %></td>
           <% end %>
         <% end %>
       </tr>
     <% end %>
   </table>
 </div>
-<div id='game_status'>
-  <% if @status == :O_wins %>
-    <p  class='end_of_game_message'>O Wins!</p> 
+<div id="game-status">
+  <% if status == :O_wins %>
+    <p  class="end-of-game-message">O Wins!</p> 
   <% elsif @status == :draw %>
-    <p  class='end_of_game_message'>It's a draw!</p>
+    <p  class="end-of-game-message">It's a draw!</p>
   <% end %>
 </div>
-<% if @status.nil? %>
-  <div id='reset'>
-    <form action='/reset', method='post'>
-      <input type='submit', id='reset_button', value='Reset'>
-      </input>
+<% if status.nil? %>
+  <div id="reset">
+    <form action="/reset", method="post">
+    <input type="submit", id="reset-button", value="Reset"/>
     </form>
   </div>
 <% else %>
-  <div id='playagain'>
-    <form action='/playagain', method='post'>
-      <input type='submit', id='playagain_button', value='Play Again!'>
-      </input>
+  <div id="playagain">
+    <form action="/playagain", method="post">
+      <input type="submit", id="playagain-button", value="Play Again!"/>
     </form>
   </div>
 <% end %>

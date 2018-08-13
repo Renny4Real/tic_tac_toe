@@ -11,7 +11,7 @@ h1 {
   font-size: 80px;
   font-family: "Courier New",Courier,monospace;
 }
-#game_table {
+#game-table {
   margin: 80px auto 0 auto;
   width: 500px;
   height: 511px
@@ -19,31 +19,31 @@ h1 {
 td {
   border: 5px solid black;
 }
-#Cell_00 {
+#Cell-00 {
   border-top: none;
   border-left: none;
 }
-#Cell_01 {
+#Cell-01 {
   border-top: none;
 }
-#Cell_02 {
+#Cell-02 {
   border-top: none;
   border-right: none;
 }
-#Cell_10 {
+#Cell-10 {
   border-left: none;
 }
-#Cell_12 {
+#Cell-12 {
 border-right: none;
 }
-#Cell_20 {
+#Cell-20 {
   border-bottom: none;
   border-left: none;
 }
-#Cell_21 {
+#Cell-21 {
   border-bottom: none;
 }
-#Cell_22 {
+#Cell-22 {
   border-bottom: none;
   border-right: none;
 }
@@ -54,12 +54,12 @@ border-right: none;
   font-size: 100px;
   color: #4e4c4c87;
 }
-.empty_cell {
+.empty-cell {
   width: 150px;
   height: 150px;
   margin: auto;
 }
-.place_mark_link {
+.place-mark-link {
   height: 100%;
   display: block;
   color: transparent;
@@ -67,13 +67,13 @@ border-right: none;
   border: transparent;
   outline: transparent;
 }
-.end_of_game_message {
+.end-of-game-message {
   text-align: center;
   margin-top: 40px;
   font-size: 96px;
   color: #b30707;
 }
-#reset_button, #playagain_button {
+#reset-button, #playagain-button {
   display: block;
   margin: auto;
   margin-top: 53px;
@@ -86,18 +86,18 @@ border-right: none;
   border-radius: 5px;
   box-shadow: 3px 4px 9px #999999;
 }
-#playagain_button {
+#playagain-button {
   width: 85px;
 }
-#reset_button:hover, #playagain_button:hover {
+#reset-button:hover, #playagain-button:hover {
   box-shadow: -2px -2px 2px #999999;
   top: 3px;
 }
-.form_link {
+.form-link {
   height: 100%;
   width: 100%;
 }
-input.selection_button {
+input.selection-button {
   width: 49%;
   height: 102px;
   font-size: 29px;
@@ -109,16 +109,16 @@ input.selection_button {
   box-shadow: 3px 4px 9px #999999;
   outline: transparent;
 }
-#player_selection {
+#player-selection {
   width: 53%;
   margin: auto;
   margin-top: 17%;
 }
-#starting_question {
+#starting-question {
   font-size: 30px;
   margin-bottom: 13%;
 }
-input.selection_button:hover {
+input.selection-button:hover {
   box-shadow: 0 3px 0 #999999;
   top: 3px;
 }
