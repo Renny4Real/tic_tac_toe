@@ -12,11 +12,17 @@ h1 {
   font-family: "Courier New",Courier,monospace;
 }
 #game-table {
+  display: flex;
+  flex-direction: column;
   margin: 80px auto 0 auto;
-  width: 500px;
-  height: 511px
 }
-td {
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-basis: 165px;
+  justify-content: center;
+}
+.cell {
   border: 5px solid black;
 }
 #Cell-00 {
@@ -48,11 +54,11 @@ border-right: none;
   border-right: none;
 }
 .cell {
-  width: 165px;
-  height: 165px;
+  flex-basis: 165px;
   text-align: center;
   font-size: 100px;
   color: #4e4c4c87;
+  padding-top: 5%;
 }
 .empty-cell {
   width: 150px;
@@ -126,3 +132,4 @@ input.selection-button:hover {
 #footer {
   margin-top: 11%;
 }
+

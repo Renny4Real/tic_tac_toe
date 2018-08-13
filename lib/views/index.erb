@@ -1,11 +1,10 @@
 <div id="game-table">
-  <table>
     <% board.each_index do |row| %>
-      <tr>
+      <div class="row">
         <% board[row].each_index do |index| %>
           <% if board[row][index] == "-" %>
             <% if status.nil? %>
-              <td id="Cell-<%= row %><%= index %>" class="cell" >
+              <div id="Cell-<%= row %><%= index %>" class="cell" >
                 <div class="empty-cell" >
                   <form action="/<%= row %>/<%= index %>", class="form-link", method="post">
                     <input type="submit", class="place-mark-link", style="width: 100%;">
@@ -13,21 +12,22 @@
                     </input>
                   </form>
                 </div>
-              </td>
+              </div>
             <% else %>
-              <td id="Cell-<%= row %><%= index %>" class="cell" >
+              <div id="Cell-<%= row %><%= index %>" class="cell" >
                 <div class="empty-cell" >
                   &nbsp;
                 </div>
-              </td>
+              </div>
             <% end %>
           <% else %>
-            <td id="Cell-<%= row %><%= index %>" class="cell" ><%= board[row][index] %></td>
+            <div id="Cell-<%= row %><%= index %>" class="cell" >
+              <%= board[row][index] %>
+            </div>
           <% end %>
         <% end %>
-      </tr>
+      </div>
     <% end %>
-  </table>
 </div>
 <div id="game-status">
   <% if status == :O_wins %>
